@@ -69,6 +69,25 @@ else
 	require(e_PLUGIN.'calendar_menu/calendar_template.php');
 }
 
+if(is_array($CALENDAR_TEMPLATE) && deftrue('BOOTSTRAP',false)) // new v2.x format. 
+{
+		
+	 $CALENDAR_TIME_TABLE		         = $CALENDAR_TEMPLATE['time_table']; 
+ 	 $CALENDAR_CALENDAR_START        = $CALENDAR_TEMPLATE['calendar_start'];	
+   $CALENDAR_CALENDAR_HEADER_START = $CALENDAR_TEMPLATE['calendar_header_start'];
+   $CALENDAR_CALENDAR_HEADER       = $CALENDAR_TEMPLATE['calendar_header'];
+   $CALENDAR_CALENDAR_HEADER_END   = $CALENDAR_TEMPLATE['calendar_header_end'];
+   $CALENDAR_CALENDAR_END          = $CALENDAR_TEMPLATE['calendar_end'];
+   
+   $CALENDAR_CALENDAR_WEEKSWITCH   = $CALENDAR_TEMPLATE['calendar_weekswitch'];
+   $CALENDAR_CALENDAR_DAY_NON      = $CALENDAR_TEMPLATE['calendar_day_non'];
+   $CALENDAR_CALENDAR_DAY_TODAY    = $CALENDAR_TEMPLATE['calendar_day_today'];
+   $CALENDAR_CALENDAR_DAY_EVENT    = $CALENDAR_TEMPLATE['calendar_day_event'];
+   $CALENDAR_SHOWEVENT             = $CALENDAR_TEMPLATE['showevent'];
+   $CALENDAR_CALENDAR_DAY_EMPTY    = $CALENDAR_TEMPLATE['calendar_day_empty'];
+   $CALENDAR_CALENDAR_DAY_END      = $CALENDAR_TEMPLATE['calendar_day_end'];
+}
+
 
 $cat_filter = intval(varset($_POST['event_cat_ids'],-1));
 if ($cat_filter == -1) $cat_filter = '*';
