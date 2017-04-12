@@ -319,4 +319,63 @@ if (!isset($EVENT_CAL_FE_LINE))
 }
 
 
+
+$CALENDAR_TEMPLATE['time_table']  = " 
+<div class='calendar-wrapper'>
+  <div class='calendar-navigation'>
+    <div class='row forumheader hidden-xs'>
+      <div class='month-browser col-md-12  text-center '>
+      	<button class='calendar_nav btn btn-default pull-left'>	{EC_PREV_MONTH} </button>
+      	<button class='current-month btn btn-primary'>	<b>{EC_CURRENT_MONTH}</b> </button>	
+        <button class='calendar_nav btn btn-default pull-right'>	{EC_NEXT_MONTH}		</button>
+      </div>
+    </div>   
+    <div class='row forumheader visible-xs text-center'> 
+      	<button class='calendar_nav btn btn-default col-xs-12'>	{EC_PREV_MONTH} </button>
+      	<button class='current-month btn btn-primary col-xs-12'>	<b>{EC_CURRENT_MONTH}</b> </button>	
+        <button class='calendar_nav btn btn-default col-xs-12'>	{EC_NEXT_MONTH}		</button>
+    </div>
+    <div class='row forumheader'>
+      <div class='year-browser  col-md-12  text-center'>
+      	<button class='calendar_nav btn btn-default pull-left'>	{EC_PREV_YEAR} </button>
+      	<button class='current-month btn btn-default hidden-xs'>	<b>{EC_MONTH_LIST}</b> </button>	
+        <button class='calendar_nav btn btn-default pull-right'>	{EC_NEXT_YEAR}	</button>
+      </div>
+    </div>
+  </div>
+ ";
+ 
+$CALENDAR_TEMPLATE['calendar_start']        = "<div class='respcalendar'  >";
+//header row
+$CALENDAR_TEMPLATE['calendar_header_start'] = "<ul class='weekdays'>";
+$CALENDAR_TEMPLATE['calendar_header']       = "<li class='day_of_week'>{EC_CALENDAR_CALENDAR_HEADER_DAY}</li>";
+$CALENDAR_TEMPLATE['calendar_header_end']   = "</ul><ul class='days'>";
+//end
+$CALENDAR_TEMPLATE['calendar_end']          = "</div>";
+// end of timetable
+$CALENDAR_TEMPLATE['calendar_end']         .= "</div>"; 
+$CALENDAR_TEMPLATE['calendar_weekswitch']   = "</ul><ul class='days'>";
+// empty day
+$CALENDAR_TEMPLATE['calendar_day_non']      = "<li class='calendar-day out_of_range'> </li>";
+//today
+$CALENDAR_TEMPLATE['calendar_day_today']    = "
+<li class='calendar-day'><div class='date day_cell'><em>{EC_CALENDAR_CALENDAR_DAY_TODAY_HEADING}  </span></em>";
+
+//day has events
+$CALENDAR_TEMPLATE['calendar_day_event']    = "
+<li class='calendar-day'><div class='date day_cell'><b>{EC_CALENDAR_CALENDAR_DAY_EVENT_HEADING}</b>";
+
+// display events ------------------------------------------------------------
+$CALENDAR_TEMPLATE['showevent'] = "
+  <div class='show-info forumheader'> {EC_SHOWEVENT_IMAGE} {EC_SHOWEVENT_INDICAT}  {EC_SHOWEVENT_HEADING}
+    <div class='show-time'>
+      {EC_CALENDAR_CALENDAR_RECENT_ICON}
+    </div>
+  </div> 
+ ";
+
+// no events and not today
+$CALENDAR_TEMPLATE['calendar_day_empty'] = "
+<li class='calendar-day'><div class='date day_cell'>{EC_CALENDAR_CALENDAR_DAY_EMPTY_HEADING}   </div>";
+$CALENDAR_TEMPLATE['calendar_day_end']   = "</li>";
 ?>

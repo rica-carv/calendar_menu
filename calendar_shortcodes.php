@@ -369,7 +369,7 @@ class event_calendar_shortcodes
 		}
 		
 		($parm == 'nosubmit') ? $insert = '' : $insert = "onchange='this.form.submit()'";
-		$ret = "<select name='event_cat_ids' class='tbox' style='width:140px;' {$insert} >\n<option value='all'>".EC_LAN_97."</option>\n";
+		$ret = "<select name='event_cat_ids' class='tbox form-control' style='width: 140px;display: inherit;' {$insert} >\n<option value='all'>".EC_LAN_97."</option>\n";
 
 		$cal_arg = ($this->ecalClass->cal_super ? '' : " find_in_set(event_cat_class,'".USERCLASS_LIST."') AND ");
 		$cal_arg .= "(event_cat_name != '".EC_DEFAULT_CATEGORY."') ";
