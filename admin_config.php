@@ -316,11 +316,11 @@ if($action == 'cat')
 
 	if (is_readable(THEME.'ec_mailout_template.php')) 
 	{  // Has to be require
-		require(THEME.'ec_mailout_template.php');
+		require(THEME.'templates/calendar_menu/ec_mailout_template.php');
 	}
 	else 
 	{
-		require(e_PLUGIN.'calendar_menu/ec_mailout_template.php');
+		require(e_PLUGIN.'calendar_menu/templates/ec_mailout_template.php');
 	}
 	$calendarmenu_db = new DB;
 	$calendarmenu_action = '';
