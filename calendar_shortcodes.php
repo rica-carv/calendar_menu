@@ -756,11 +756,12 @@ class event_calendar_shortcodes
 	 */
 	public function sc_ec_event_displayclass($parm='')
 	{	
+    $class = empty($parm) ? "" : $parm; 
 		if (($this->ds=='event') || ($this->ds=='one'))
 		{	// Single event or one day's events - block expanded
-			return " class='{$parm}'";
+			return " class='{$class}'";
 		}
-		return " class='e-show-if-js e-hideme {$parm}'";	// Block contracted
+		return " class='e-show-if-js e-hideme {$class}'";	// Block contracted
 //		return " class='e-hide-if-js e-showme {$parm}'";	// Block contracted
 	}
 
