@@ -110,7 +110,7 @@ $CALENDARLEGACY_TEMPLATE['event']['eventlist_table_end'] = "</table>";
 $sc_style['EC_EVENTARCHIVE_CAPTION']['pre'] = "<tr><td colspan='2' class='fcaption'>";
 $sc_style['EC_EVENTARCHIVE_CAPTION']['post'] = "</td></tr>\n";
 
-$CALENDARLEGACY_TEMPLATE['event']['eventlist_table_start'] = "<br /><table class='table fborder'>{EC_EVENTARCHIVE_CAPTION}";
+$CALENDARLEGACY_TEMPLATE['event']['archive_table_start'] = "<br /><table class='table fborder'>{EC_EVENTARCHIVE_CAPTION}";
 $CALENDARLEGACY_TEMPLATE['event']['archive_table'] = "
 <tr>
 	<td style='width:35%; vertical-align:top' class='forumheader3'>{EC_EVENT_RECENT_ICON}{EC_EVENTARCHIVE_DATE}</td>
