@@ -260,55 +260,57 @@ $CALENDARBOOTSTRAP3_TEMPLATE['calendar']['calendar_day_end']   = "</li>";
 // Calendar menu - 'Small' calendar
 //------------------------------------------
 $CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['hdg_link_class'] = "class='forumlink'";			// Class, and optional style, for menu heading if its a clickable link
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['start'] = "<div style='text-align:center'>";
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['table_start'] =  "<table cellpadding='0' cellspacing='1' style='width:100%;' class='table fborder'>";	// colgroup doesn't work!
 
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['end'] = "</tr></table></div>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['start'] = '<div class="e107 e107-mini-calendar  text-center">';
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['table_start'] =  '<table class="table table-striped table-bordered">';	 
+
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['end'] = "</table></div>";
 
 // Blank cells at beginning and end
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_non'] = "<td class='forumheader3' style='width:14.28%; padding:1px; text-align:center; '>&nbsp;</td>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_non'] = "<td class='case2 text-center'><div>&nbsp;</div></td>";  
 
 //header row
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['header_start'] = "<tr>\n";
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['header_front'] = "<th class='forumheader' style='text-align:center; vertical-align:middle;'><span class='smalltext'>";
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['header_back'] = "</span></th>";
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['header_end'] = "</tr>\n<tr>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['header_start'] = '
+<tr class="e107-mini-calendar-header">';
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['header_front'] = '<th class="text-center">';
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['header_back'] = "</th>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['header_end'] = "</tr><tr>";
 
 
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['weekswitch'] = "</tr>\n<tr>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['weekswitch'] = "</tr><tr>";
 
 // Start and end CSS for date cells - six cases to decode, determined by array index:
-//     	1 - Today, no events
+//    	1 - Today, no events
 //		2 - Some other day, no events
 //		3 - Today with events
 //		4 - Some other day with events
 //		5 - today with events, one or more of which has recently been added/updated
 //		6 - Some other day with events, one or more of which has recently been added/updated
-
+// all classes can be rewritten in css with .e107-mini-calendar .case1  ... selectors 
  
 //today, no events
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_start']['1'] = "<td class='indent' style='width:14.28%; padding:1px; text-align:center; '>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_start']['1'] = "<td class='case1 text-center bg-warning'><div>";
 
 // no events and not today
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_start']['2'] = "<td class='forumheader3' style='width:14.28%; padding:1px; text-align:center; '>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_start']['2'] = "<td class='case2 text-center'><div>";
 
 //day has events - same whether its today or not
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_start']['3'] = "<td class='indent' style='width:14.28%; padding:1px; text-align:center; '>";
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_start']['4'] = "<td class='indent' style='width:14.28%; padding:1px; text-align:center; '>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_start']['3'] = "<td class='case3 text-center'><div>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_start']['4'] = "<td class='case4 text-center bg-info'><div>";
 // day has events, one which is recently added/updated
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_start']['5'] = "<td class='indent' style='width:14.28%; padding:1px; text-align:center; '>";
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_start']['6'] = "<td class='indent' style='width:14.28%; padding:1px; text-align:center; '>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_start']['5'] = "<td class='case5 text-center bg-danger'><div>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_start']['6'] = "<td class='case6 text-center bg-success'><div>";
 // Example highlight using background colour:
 //$CALENDAR_MENU_DAY_START['5'] = "<td class='indent' style='width:14.28%; padding:1px; text-align:center; background-color: #FF8000;'>";
 //$CALENDAR_MENU_DAY_START['6'] = "<td class='indent' style='width:14.28%; padding:1px; text-align:center; background-color: #FF0000; '>";
  
  
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_end']['1'] = "</td>";
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_end']['2'] = "</td>";
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_end']['3'] = "</td>";
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_end']['4'] = "</td>";
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_end']['5'] = "</td>";
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_end']['6'] = "</td>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_end']['1'] = "</div></td>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_end']['2'] = "</div></td>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_end']['3'] = "</div></td>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_end']['4'] = "</div></td>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_end']['5'] = "</div></td>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_end']['6'] = "</div></td>";
 
 //============================================================================
 // Next event menu template
