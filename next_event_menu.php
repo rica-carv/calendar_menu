@@ -45,15 +45,16 @@ include_lan(e_PLUGIN.'calendar_menu/languages/'.e_LANGUAGE.'.php');
 require_once(e_PLUGIN.'calendar_menu/calendar_shortcodes.php');
 $calSc = new event_calendar_shortcodes();
 
-if (is_readable(THEME.'templates/calendar_menu/calendar_template.php')) 
-{  // Has to be require
-	require(THEME.'templates/calendar_menu/calendar_template.php');
+/* for now, both templates are the same */
+if(deftrue('BOOTSTRAP') === 3)  {
+   $calendartemplate   = e107::getTemplate('calendar_menu', 'calendarbootstrap3' , 'next_event_menu' );
 }
-else 
-{
-	require(e_PLUGIN.'calendar_menu/templates/calendar_template.php');
-}
+else {
+	 $calendartemplate   = e107::getTemplate('calendar_menu', 'calendarlegacy' , 'next_event_menu' );
 
+}
+ 
+$EVENT_CAL_FE_LINE = $calendartemplate['cal_fe_line'];
 
 // Values defined through admin pages
 $menu_title = varset($this->ecal_class->pref['eventpost_menuheading'],EC_LAN_140);
@@ -75,6 +76,7 @@ $ev_list = $ecal_class->get_n_events($show_count, $start_time, $end_time, varset
 						'event_id,event_start, event_thread, event_title, event_recurring, event_allday, event_category', 'event_cat_icon');
 
 $cal_totev = count($ev_list);
+
 if ($cal_totev > 0)
 {
 	foreach ($ev_list as $thisEvent)

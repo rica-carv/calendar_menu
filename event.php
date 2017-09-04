@@ -705,18 +705,33 @@ if ($action == 'ne' || $action == 'ed')
 // show events
 // $month, $year have the month required
 //-----------------------------------------------
-
-if (is_readable(THEME.'templates/calendar_menu/calendar_template.php')) 
-{  // Has to be require
-	require(THEME.'templates/calendar_menu/calendar_template.php');
+		 
+if(deftrue('BOOTSTRAP') === 3)  {
+   $calendartemplate   = e107::getTemplate('calendar_menu', 'calendarbootstrap3' );
 }
-else 
-{
-	require(e_PLUGIN.'calendar_menu/templates/calendar_template.php');
-}
+else {
+	 $calendartemplate   = e107::getTemplate('calendar_menu', 'calendarlegacy' );
+} 
+  
+ 
+$CALENDAR_TIME_TABLE		        = $calendartemplate['calendar']['time_table']; 
+$CALENDAR_TIME_TABLE_END        = $calendartemplate['calendar']['time_table_end'];
+$CALENDAR_NAVIGATION_TABLE      = $calendartemplate['calendar']['calendar_navigation_table'];	
+ 
+$EVENT_EVENT_TABLE_START  		  = $calendartemplate['event']['event_table_start'];
+$EVENT_EVENT_TABLE              = $calendartemplate['event']['event_table'];
+$EVENT_EVENT_TABLE_END          = $calendartemplate['event']['event_table_end'];
+$EVENT_EVENTLIST_TABLE_START    = $calendartemplate['event']['eventlist_table_start'];
+$EVENT_EVENTLIST_TABLE_END      = $calendartemplate['event']['eventlist_table_end'];
+$EVENT_ARCHIVE_TABLE            = $calendartemplate['event']['archive_table'];
+$EVENT_ARCHIVE_TABLE_EMPTY      = $calendartemplate['event']['archive_table_empty'];
+$EVENT_ARCHIVE_TABLE_START      = $calendartemplate['event']['archive_table_start'];
+$EVENT_ARCHIVE_TABLE_END        = $calendartemplate['event']['archive_table_end'];
 
-$template   = e107::getTemplate('calendar_menu', 'calendar');
-
+$EVENT_EVENT_DATETIME           = $calendartemplate['event']['event_datetime'];
+   
+   
+ 
 $calSc->ecalClass = &$ecal_class;					// Give shortcodes a pointer to calendar class
 $calSc->setCalDate($dateArray);					// Tell shortcodes the date to display
 $calSc->catFilter = $cat_filter;					// Category filter
@@ -731,10 +746,10 @@ $nowyear	= $ecal_class->cal_date['year'];
 
 $text2 = "";
 // time switch buttons
-$text2 .= $tp->parseTemplate($CALENDAR_TIME_TABLE, FALSE, $calSc);
+$text2 .= $tp->parseTemplate($CALENDAR_TIME_TABLE, FALSE, $calSc);    /*ok*/
 
 // navigation buttons
-$text2 .= $tp->parseTemplate($CALENDAR_NAVIGATION_TABLE, FALSE, $calSc);
+$text2 .= $tp->parseTemplate($CALENDAR_NAVIGATION_TABLE, FALSE, $calSc);  /*ok*/
 
 
 // ****** CAUTION - the category dropdown also used $sql object - take care to avoid interference!
@@ -770,9 +785,9 @@ if ($ds == 'event')
     }
     $next10_start = $thisEvent['event_start'] +1;
 	$calSc->event = $thisEvent;			// Give shortcodes the event data
-	$text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE_START, FALSE, $calSc);
-	if ($ec_err) $text2.= "Software Error<br />"; else $text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE, FALSE, $calSc);
-	$text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE_END, FALSE, $calSc);
+	$text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE_START, FALSE, $calSc);   /* ok */
+	if ($ec_err) $text2.= "Software Error<br />"; else $text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE, FALSE, $calSc);   /* ok */
+	$text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE_END, FALSE, $calSc);    /* ok */
 }
 else
 {
@@ -827,7 +842,7 @@ else
 		{
 			$ev_list[$ptr]['event_start'] = $tim;
 			$calSc->event = $ev_list[$ptr];			// Give shortcodes the event data
-			$text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE, FALSE, $calSc);
+			$text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE, FALSE, $calSc);       /* ok */
 		}
 		$text2 .= $tp->parseTemplate($EVENT_EVENTLIST_TABLE_END, FALSE, $calSc);
 	}
@@ -860,6 +875,7 @@ $text2 .= $tp->parseTemplate($EVENT_ARCHIVE_TABLE_START, FALSE, $calSc);
 $text2 .= $archive_events;
 $text2 .= $tp->parseTemplate($EVENT_ARCHIVE_TABLE_END, FALSE, $calSc);
 
+$text2 .= $tp->parseTemplate($CALENDAR_TIME_TABLE_END, FALSE, $calSc);
 
 $ns->tablerender($tp->ParseTemplate('{EC_EVENT_PAGE_TITLE}', FALSE, $calSc), $text2);
 

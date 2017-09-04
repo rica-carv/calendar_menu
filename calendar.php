@@ -73,34 +73,34 @@ define('PAGE_NAME', EC_LAN_121);
 require_once(e_PLUGIN.'calendar_menu/ecal_class.php');
 $ecal_class = new ecal_class;
 
-if (is_readable(THEME.'templates/calendar_menu/calendar_template.php')) 
-{
-	require(THEME.'templates/calendar_menu/calendar_template.php');
-}
-else 
-{
-	require(e_PLUGIN.'calendar_menu/templates/calendar_template.php');
-}
 
-if(is_array($CALENDAR_TEMPLATE) && deftrue('BOOTSTRAP',false)) // new v2.x format. 
-{
-		
-	 $CALENDAR_TIME_TABLE		         = $CALENDAR_TEMPLATE['time_table']; 
- 	 $CALENDAR_CALENDAR_START        = $CALENDAR_TEMPLATE['calendar_start'];	
-   $CALENDAR_CALENDAR_HEADER_START = $CALENDAR_TEMPLATE['calendar_header_start'];
-   $CALENDAR_CALENDAR_HEADER       = $CALENDAR_TEMPLATE['calendar_header'];
-   $CALENDAR_CALENDAR_HEADER_END   = $CALENDAR_TEMPLATE['calendar_header_end'];
-   $CALENDAR_CALENDAR_END          = $CALENDAR_TEMPLATE['calendar_end'];
-   
-   $CALENDAR_CALENDAR_WEEKSWITCH   = $CALENDAR_TEMPLATE['calendar_weekswitch'];
-   $CALENDAR_CALENDAR_DAY_NON      = $CALENDAR_TEMPLATE['calendar_day_non'];
-   $CALENDAR_CALENDAR_DAY_TODAY    = $CALENDAR_TEMPLATE['calendar_day_today'];
-   $CALENDAR_CALENDAR_DAY_EVENT    = $CALENDAR_TEMPLATE['calendar_day_event'];
-   $CALENDAR_SHOWEVENT             = $CALENDAR_TEMPLATE['showevent'];
-   $CALENDAR_CALENDAR_DAY_EMPTY    = $CALENDAR_TEMPLATE['calendar_day_empty'];
-   $CALENDAR_CALENDAR_DAY_END      = $CALENDAR_TEMPLATE['calendar_day_end'];
+if(deftrue('BOOTSTRAP') === 3)  {
+   $calendartemplate   = e107::getTemplate('calendar_menu', 'calendarbootstrap3' );
 }
+else {
+	 $calendartemplate   = e107::getTemplate('calendar_menu', 'calendarlegacy' );
+} 
+  
+$CALENDAR_TIME_TABLE		        = $calendartemplate['calendar']['time_table']; 
+$CALENDAR_TIME_TABLE_END        = $calendartemplate['calendar']['time_table_end'];
+$CALENDAR_NAVIGATION_TABLE      = $calendartemplate['calendar']['calendar_navigation_table'];	
 
+
+$CALENDAR_CALENDAR_HEADER_START = $calendartemplate['calendar']['calendar_header_start'];
+$CALENDAR_CALENDAR_HEADER       = $calendartemplate['calendar']['calendar_header'];
+$CALENDAR_CALENDAR_HEADER_END   = $calendartemplate['calendar']['calendar_header_end'];
+
+$CALENDAR_CALENDAR_START        = $calendartemplate['calendar']['calendar_start'];
+$CALENDAR_CALENDAR_END          = $calendartemplate['calendar']['calendar_end'];
+
+
+$CALENDAR_CALENDAR_WEEKSWITCH   = $calendartemplate['calendar']['calendar_weekswitch'];
+$CALENDAR_CALENDAR_DAY_NON      = $calendartemplate['calendar']['calendar_day_non'];
+$CALENDAR_CALENDAR_DAY_TODAY    = $calendartemplate['calendar']['calendar_day_today'];
+$CALENDAR_CALENDAR_DAY_EVENT    = $calendartemplate['calendar']['calendar_day_event'];
+$CALENDAR_SHOWEVENT             = $calendartemplate['calendar']['showevent'];
+$CALENDAR_CALENDAR_DAY_EMPTY    = $calendartemplate['calendar']['calendar_day_empty'];
+$CALENDAR_CALENDAR_DAY_END      = $calendartemplate['calendar']['calendar_day_end'];
 
 $cat_filter = intval(varset($_POST['event_cat_ids'],-1));
 if ($cat_filter == -1) $cat_filter = '*';
@@ -143,7 +143,8 @@ $calSc->catFilter = $cat_filter;
 //-------------------------------------------------
 
 // time switch buttons
-$cal_text = $tp->parseTemplate($CALENDAR_TIME_TABLE, FALSE, $calSc);
+$cal_text 		= $tp->parseTemplate($CALENDAR_TIME_TABLE, FALSE, $calSc);
+$cal_text_end = $tp->parseTemplate($CALENDAR_TIME_TABLE_END, FALSE, $calSc);
 
 // navigation buttons
 $nav_text = $tp->parseTemplate($CALENDAR_NAVIGATION_TABLE, FALSE, $calSc);
@@ -213,9 +214,9 @@ foreach ($ev_list as $row)
 
 $start		= $monthstart;
 $numberdays	= gmdate("t", $start); // number of days in this month
-
+ 
 $text = "";
-$text .= $tp->parseTemplate($CALENDAR_CALENDAR_START, FALSE, $calSc);
+$text .= $tp->parseTemplate($CALENDAR_CALENDAR_START, FALSE, $calSc);   /* ok */
 $text .= $tp->parseTemplate($CALENDAR_CALENDAR_HEADER_START, FALSE, $calSc);
 
 // Display the column headers
@@ -303,7 +304,7 @@ if($loop!=0)
 }
 $text .= $tp->parseTemplate($CALENDAR_CALENDAR_END, FALSE, $calSc);
 
-$ns->tablerender(EC_LAN_79, $cal_text . $nav_text . $text);
+$ns->tablerender(EC_LAN_79, $cal_text . $nav_text . $text . $cal_text_end);
 
 // Claim back memory from key variables
 unset($ev_list);
