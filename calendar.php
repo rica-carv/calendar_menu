@@ -27,26 +27,39 @@ if (!defined('e_SINGLE_ENTRY'))
 $e107 = e107::getInstance();
 $tp = e107::getParser();
 
-if (!$e107->isInstalled('calendar_menu')) header('Location: '.e_BASE.'index.php');
+if (!$e107->isInstalled('calendar_menu')) 
+{
+  //headerx('location:'.e_BASE.'index.php');
+  e107::redirect();
+  exit;
+}
 
 if (isset($_POST['viewallevents']))
 {
-    Header('Location: '.e_PLUGIN_ABS.'calendar_menu/event.php?' . $_POST['enter_new_val']);
+  //  Headerx('Location: '.e_PLUGIN_ABS.'calendar_menu/event.php?' . $_POST['enter_new_val']);
+  $url = e_PLUGIN_ABS.'calendar_menu/event.php?' . $_POST['enter_new_val'];
+	e107::redirect($url);
 	exit();
 } 
 if (isset($_POST['doit']))
 {
-    Header('Location: '.e_PLUGIN_ABS.'calendar_menu/event.php?ne.' . $_POST['enter_new_val']);
+  //  Headerx('Location: '.e_PLUGIN_ABS.'calendar_menu/event.php?ne.' . $_POST['enter_new_val']);
+  $url = e_PLUGIN_ABS.'calendar_menu/event.php?ne.' . $_POST['enter_new_val'];
+	e107::redirect($url);
 	exit();
 }
 if (isset($_POST['subs']))
 {
-    Header('Location: '.e_PLUGIN_ABS.'calendar_menu/subscribe.php');
+  //  Headerx('Location: '.e_PLUGIN_ABS.'calendar_menu/subscribe.php');
+  $url = e_PLUGIN_ABS.'calendar_menu/subscribe.php';
+	e107::redirect($url);  
 	exit();
 } 
 if (isset($_POST['printlists']))
 {
-    Header('Location: '.e_PLUGIN_ABS.'calendar_menu/ec_pf_page.php');
+  //  Headerx('Location: '.e_PLUGIN_ABS.'calendar_menu/ec_pf_page.php');
+  $url = e_PLUGIN_ABS.'calendar_menu/ec_pf_page.php';
+	e107::redirect($url);  
 	exit();
 } 
 

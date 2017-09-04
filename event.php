@@ -29,31 +29,40 @@ $tp = e107::getParser();
 
 if (!$e107->isInstalled('calendar_menu'))
 {
-	header('Location: '.e_BASE.'index.php');
-	exit();
+	//headerx('Location: '.e_BASE.'index.php');
+  e107::redirect();
+  exit;
 }
 
 if (isset($_POST['viewallevents']))
 {  // Triggered from NAV_BUT_ALLEVENTS
-    Header('Location: '.e_PLUGIN_ABS.'calendar_menu/calendar.php?'.$_POST['enter_new_val']);
+  //  Headerx('Location: '.e_PLUGIN_ABS.'calendar_menu/calendar.php?'.$_POST['enter_new_val']);
+  $url = e_PLUGIN_ABS.'calendar_menu/calendar.php?'.$_POST['enter_new_val'];
+	e107::redirect($url);
 	exit();
 }
 
 if (isset($_POST['doit']))
 {  // Triggered from NAV_BUT_ENTEREVENT
-    Header('Location: '.e_PLUGIN_ABS.'calendar_menu/event.php?ne.'.$_POST['enter_new_val']);
+   // Headerx('Location: '.e_PLUGIN_ABS.'calendar_menu/event.php?ne.'.$_POST['enter_new_val']);
+  $url = e_PLUGIN_ABS.'calendar_menu/event.php?ne.'.$_POST['enter_new_val'];
+	e107::redirect($url);    
 	exit();
 }
 
 if (isset($_POST['subs']))
 {
-    Header('Location: '.e_PLUGIN_ABS.'calendar_menu/subscribe.php');
+  //  Headerx('Location: '.e_PLUGIN_ABS.'calendar_menu/subscribe.php');
+  $url = e_PLUGIN_ABS.'calendar_menu/subscribe.php';
+	e107::redirect($url);     
 	exit();
 }
 
 if (isset($_POST['printlists']))
 {
-    Header('Location: '.e_PLUGIN_ABS.'calendar_menu/ec_pf_page.php');
+  //   Headerx('Location: '.e_PLUGIN_ABS.'calendar_menu/ec_pf_page.php');
+  $url = e_PLUGIN_ABS.'calendar_menu/ec_pf_page.php';
+	e107::redirect($url);   
 	exit();
 } 
 
@@ -99,11 +108,15 @@ if ((isset($_POST['ne_insert']) || isset($_POST['ne_update'])) && ($cal_super  |
 	$ev_start = $ecal_class->make_date($_POST['ne_hour'], $_POST['ne_minute'],$_POST['start_date']);
 	if (($_POST['ne_event'] == '') || !isset($_POST['qs']))
 	{	// Problem - tell user to go away - fields are blank (mostly checked by JS)
-		header('location:event.php?'.$ev_start.'.0.m3');
+		//headerx('location:event.php?'.$ev_start.'.0.m3'); 
+		$url = e_PLUGIN_ABS.'calendar_menu/event.php?'.$ev_start.'.0.m3';
+		e107::redirect($url); 
 	}
 	elseif (!isset($_POST['ne_category']) || (($ev_category = intval($_POST['ne_category'])) == 0))
 	{
-		header('location:event.php?'.$ev_start.'.0.m6');
+		//headerx('location:event.php?'.$ev_start.'.0.m6');
+		$url = e_PLUGIN_ABS.'calendar_menu/event.php?'.$ev_start.'.0.m6';
+		e107::redirect($url); 
 	}
 	else
 	{
@@ -114,13 +127,16 @@ if ((isset($_POST['ne_insert']) || isset($_POST['ne_update'])) && ($cal_super  |
 				$row = $sql->db_Fetch(MYSQL_ASSOC);
 				if (!check_class($row['event_cat_addclass']))
 				{
-					header('location:event.php?'.$ev_start.'.0.m8');
+					//headerx('location:event.php?'.$ev_start.'.0.m8');
+					$url = e_PLUGIN_ABS.'calendar_menu/event.php?'.$ev_start.'.0.m8';
+					e107::redirect($url); 
 					exit;
 				}
 			}
 			else
 			{		// Invalid category - definitely go away!
-				header('location:'.e_BASE.'index.php');
+				//headerx('location:'.e_BASE.'index.php');
+				e107::redirect();
 				exit;
 			}
 		}
@@ -183,9 +199,11 @@ if ((isset($_POST['ne_insert']) || isset($_POST['ne_update'])) && ($cal_super  |
 		}
 		if ($mult_count <= 1)
 		{
-		// Now clear cache  - just do the lot for now - get clever later
-		$e107cache->clear('nq_event_cal');
-		header('location:event.php?'.$ev_start.'.'.$qs.$report_msg);
+			// Now clear cache  - just do the lot for now - get clever later
+			$e107cache->clear('nq_event_cal');
+			//headerx('location:event.php?'.$ev_start.'.'.$qs.$report_msg);
+			$url = e_PLUGIN_ABS.'calendar_menu/event.php?'.$ev_start.'.'.$qs.$report_msg;
+			e107::redirect($url); 
 		}
 	}
 }
@@ -675,8 +693,10 @@ if ($action == 'ne' || $action == 'ed')
     }
     else
     {
-		header('location:'.e_PLUGIN.'calendar_menu/event.php');
-        exit();
+			//headerx('location:'.e_PLUGIN.'calendar_menu/event.php');
+			$url = e_PLUGIN_ABS.'calendar_menu/calendar_menu/event.php';
+			e107::redirect($url);
+	    exit();
     }
 }   // End of "Enter New Event"
 

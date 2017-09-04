@@ -24,7 +24,8 @@ $e_sub_cat = 'event_calendar';
 require_once('../../class2.php');
 if (!getperms('P')) 
 {
-  header('location:'.e_BASE.'index.php');
+  //headerx('location:'.e_BASE.'index.php');
+  e107::redirect();
   exit;
 }
 	

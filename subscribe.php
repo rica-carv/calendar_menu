@@ -27,7 +27,8 @@ $e107 = e107::getInstance();
 
 if (!$e107->isInstalled('calendar_menu'))
 {
-	header('Location: '.e_BASE.'index.php');
+	//headerx('Location: '.e_BASE.'index.php');
+	e107::redirect();
 	exit();
 }
 

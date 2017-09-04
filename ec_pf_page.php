@@ -41,7 +41,12 @@ if (!defined('e_SINGLE_ENTRY'))
 $e107 = e107::getInstance();
 $tp = e107::getParser();
 
-if (!$e107->isInstalled('calendar_menu')) header('Location: '.e_BASE.'index.php');
+if (!$e107->isInstalled('calendar_menu')) 
+{
+  //headerx('location:'.e_BASE.'index.php');
+  e107::redirect();
+  exit;
+}
 include_lan(e_PLUGIN.'calendar_menu/languages/'.e_LANGUAGE.'.php');
 define('PAGE_NAME', EC_LAN_80);
 
@@ -58,8 +63,11 @@ unset($ec_qs);
 if (e_QUERY) $ec_qs = explode('.', e_QUERY); 
 else
 {
-  if (!isset($ecal_class->pref['eventpost_printlists']) || ($ecal_class->pref['eventpost_printlists'] == 0))
-    header('location:'.SITEURL);   // If disabled, just go back to index page
+  if (!isset($ecal_class->pref['eventpost_printlists']) || ($ecal_class->pref['eventpost_printlists'] == 0))  {
+    //headerx('location:'.SITEURL);   // If disabled, just go back to index page
+    e107::redirect();
+	  exit;
+	}
 }
 
 if (isset($_POST['set_dates']) && isset($_POST['start_date']) && (isset($_POST['end_date'])))
