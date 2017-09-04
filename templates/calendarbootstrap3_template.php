@@ -101,7 +101,7 @@ $CALENDARBOOTSTRAP3_TEMPLATE['calendar']['calendar_navigation_table'] = "
 $sc_style['EC_EVENTLIST_CAPTION']['pre'] = "<tr><td class='fcaption' colspan='2'>";
 $sc_style['EC_EVENTLIST_CAPTION']['post'] = ":<br /><br /></td></tr>\n";
 
-$CALENDARBOOTSTRAP3_TEMPLATE['event']['eventlist_table_start'] = "<table class='table fborder'>{EC_EVENTLIST_CAPTION}";
+$CALENDARBOOTSTRAP3_TEMPLATE['event']['eventlist_table_start'] = "<table class='table fborder eventlist_table_start'>{EC_EVENTLIST_CAPTION}";
 $CALENDARBOOTSTRAP3_TEMPLATE['event']['eventlist_table_end'] = "</table>";
 
 
@@ -110,7 +110,7 @@ $CALENDARBOOTSTRAP3_TEMPLATE['event']['eventlist_table_end'] = "</table>";
 $sc_style['EC_EVENTARCHIVE_CAPTION']['pre'] = "<tr><td colspan='2' class='fcaption'>";
 $sc_style['EC_EVENTARCHIVE_CAPTION']['post'] = "</td></tr>\n";
 
-$CALENDARBOOTSTRAP3_TEMPLATE['event']['archive_table_start'] = "<br /><table class='table fborder'>{EC_EVENTARCHIVE_CAPTION}";
+$CALENDARBOOTSTRAP3_TEMPLATE['event']['archive_table_start'] = "<br /><table class='table fborder archive_table_start'>{EC_EVENTARCHIVE_CAPTION}";
 
 
 $CALENDARBOOTSTRAP3_TEMPLATE['event']['archive_table'] = "
@@ -125,7 +125,7 @@ $CALENDARBOOTSTRAP3_TEMPLATE['event']['archive_table_end'] = "</table>";
 
 
 // EVENT SHOW EVENT ------------------------------------------------------------
-$CALENDARBOOTSTRAP3_TEMPLATE['event']['event_table_start'] = "<table class='table fborder' cellspacing='0' cellpadding='0'>";
+$CALENDARBOOTSTRAP3_TEMPLATE['event']['event_table_start'] = "<table class='table fborder event_table_start'>";
 $CALENDARBOOTSTRAP3_TEMPLATE['event']['event_table_end'] = "</table>";
 
 $sc_style['EC_EVENT_HEADING_DATE']['pre'] = "";
