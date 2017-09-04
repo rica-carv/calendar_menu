@@ -42,13 +42,13 @@ if($cacheData = $e107->ecache->retrieve($cache_tag, $ecal_class->max_cache_time)
 include_lan(e_PLUGIN.'calendar_menu/languages/'.e_LANGUAGE.'.php');
 
 // Doesn't use shortcodes - rather a specific format for that
-if (is_readable(THEME.'calendar_template.php')) 
+if (is_readable(THEME.'templates/calendar_menu/calendar_template.php')) 
 {  // Has to be require
-	require(THEME.'calendar_template.php');
+	require(THEME.'templates/calendar_menu/calendar_template.php');
 }
 else 
 {
-	require(e_PLUGIN.'calendar_menu/calendar_template.php');
+	require(e_PLUGIN.'calendar_menu/templates/calendar_template.php');
 }
 
 $show_recurring = TRUE;		// Could be pref later

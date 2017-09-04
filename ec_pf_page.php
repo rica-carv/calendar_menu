@@ -96,9 +96,9 @@ $cal_super = $ecal_class->cal_super;
 $EVENT_CAL_PDF_HEADER = array();
 $EVENT_CAL_PDF_BODY   = array();
 $EVENT_CAL_PDF_FOOTER = array();
-if (is_readable(e_PLUGIN.'calendar_menu/ec_pf_template.php')) require_once(e_PLUGIN.'calendar_menu/ec_pf_template.php');
-if (is_readable(e_PLUGIN.'calendar_menu/ec_pf_user_template.php')) require_once(e_PLUGIN.'calendar_menu/ec_pf_user_template.php');
-if (is_readable(THEME.'ec_pf_template.php')) require_once(THEME.'ec_pf_template.php');
+if (is_readable(e_PLUGIN.'calendar_menu/templates/ec_pf_template.php')) require_once(e_PLUGIN.'calendar_menu/templates/ec_pf_template.php');
+if (is_readable(e_PLUGIN.'calendar_menu/templates/ec_pf_user_template.php')) require_once(e_PLUGIN.'calendar_menu/templates/ec_pf_user_template.php');
+if (is_readable(THEME.'templates/calendar_menu/ec_pf_template.php')) require_once(THEME.'templates/calendar_menu/ec_pf_template.php');
 
 // Hard-coded alternatives
 if (!count($EVENT_CAL_PDF_HEADER)) $EVENT_CAL_PDF_HEADER['default'] = '<br />';

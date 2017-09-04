@@ -705,14 +705,17 @@ if ($action == 'ne' || $action == 'ed')
 // show events
 // $month, $year have the month required
 //-----------------------------------------------
-if (is_readable(THEME.'calendar_template.php')) 
+
+if (is_readable(THEME.'templates/calendar_menu/calendar_template.php')) 
 {  // Has to be require
-	require(THEME.'calendar_template.php');
+	require(THEME.'templates/calendar_menu/calendar_template.php');
 }
 else 
 {
-	require(e_PLUGIN.'calendar_menu/calendar_template.php');
+	require(e_PLUGIN.'calendar_menu/templates/calendar_template.php');
 }
+
+$template   = e107::getTemplate('calendar_menu', 'calendar');
 
 $calSc->ecalClass = &$ecal_class;					// Give shortcodes a pointer to calendar class
 $calSc->setCalDate($dateArray);					// Tell shortcodes the date to display

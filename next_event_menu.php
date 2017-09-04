@@ -45,13 +45,13 @@ include_lan(e_PLUGIN.'calendar_menu/languages/'.e_LANGUAGE.'.php');
 require_once(e_PLUGIN.'calendar_menu/calendar_shortcodes.php');
 $calSc = new event_calendar_shortcodes();
 
-if (is_readable(THEME.'calendar_template.php')) 
+if (is_readable(THEME.'templates/calendar_menu/calendar_template.php')) 
 {  // Has to be require
-	require(THEME.'calendar_template.php');
+	require(THEME.'templates/calendar_menu/calendar_template.php');
 }
 else 
 {
-	require(e_PLUGIN.'calendar_menu/calendar_template.php');
+	require(e_PLUGIN.'calendar_menu/templates/calendar_template.php');
 }
 
 

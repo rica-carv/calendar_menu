@@ -73,13 +73,13 @@ define('PAGE_NAME', EC_LAN_121);
 require_once(e_PLUGIN.'calendar_menu/ecal_class.php');
 $ecal_class = new ecal_class;
 
-if (is_readable(THEME.'calendar_template.php')) 
+if (is_readable(THEME.'templates/calendar_menu/calendar_template.php')) 
 {
-	require(THEME.'calendar_template.php');
+	require(THEME.'templates/calendar_menu/calendar_template.php');
 }
 else 
 {
-	require(e_PLUGIN.'calendar_menu/calendar_template.php');
+	require(e_PLUGIN.'calendar_menu/templates/calendar_template.php');
 }
 
 if(is_array($CALENDAR_TEMPLATE) && deftrue('BOOTSTRAP',false)) // new v2.x format. 
