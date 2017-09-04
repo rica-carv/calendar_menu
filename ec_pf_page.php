@@ -460,14 +460,15 @@ function gen_drop($drop_type, $ecal_class)
 
 	// Get date to be 1st of month
 	$date = $ecal_class->gmgetdate($match_date);
-	$match_date = gmmktime(0,0,0,$date['mon'],1,$date['year'],FALSE);
- 
+	//$match_date = gmmktime(0,0,0,$date['mon'],1,$date['year'],FALSE);
+  $match_date = gmmktime(0,0,0,$date['mon'],1,$date['year']);
 	for ($i = 0; $i < 24; $i++)
 	{ 
 		$sel_text = (($match_date == $start_date) ? "selected='selected'" : "");
 		$date = $ecal_class->gmgetdate($start_date);
 		$text .= "<option value = '{$date['year']}{$date['mon']}' {$sel_text}>{$date['month']} {$date['year']} </option>\n";
-		$start_date = gmmktime(0,0,0,$date['mon']+1,1,$date['year'],FALSE);
+		//$start_date = gmmktime(0,0,0,$date['mon']+1,1,$date['year'],FALSE);
+		$start_date = gmmktime(0,0,0,$date['mon']+1,1,$date['year']);
 	}
 	$text .= "</select>\n";
 	return $text;
