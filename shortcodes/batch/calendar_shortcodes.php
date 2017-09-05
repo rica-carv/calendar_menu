@@ -265,14 +265,45 @@ class plugin_calendar_menu_calendar_shortcodes extends e_shortcode
 	// Navigation shortcodes
 	public function sc_ec_prev_month($parm = '')
 	{
-		return "<a href='".e_SELF."?".$this->previous."'>&lt;&lt; ".$this->months[($this->prevMonth-1)]."</a>";
+		$class = (!empty($parm['class'])) ? $parm['class'] : '';		
+		return "<a class='ec_prev_month {$class}' href='".e_SELF."?".$this->previous."'>&lt;&lt; ".$this->months[($this->prevMonth-1)]."</a>";
 	}
 
 	public function sc_ec_next_month($parm = '')
 	{
-		return "<a href='".e_SELF."?".$this->next."'> ".$this->months[($this->nextMonth-1)]." &gt;&gt;</a>";
+		$class = (!empty($parm['class'])) ? $parm['class'] : '';
+		return "<a class='ec_next_month {$class}' href='".e_SELF."?".$this->next."'> ".$this->months[($this->nextMonth-1)]." &gt;&gt;</a>";
 	}
 
+
+	public function sc_ec_prev_year($parm = '')
+	{
+		$class = (!empty($parm['class'])) ? $parm['class'] : '';
+		return "<a class='ec_prev_year {$class}' href='".e_SELF."?".$this->prevLink."'>&lt;&lt; ".$this->py."</a>";
+	}
+
+	public function sc_ec_next_year($parm = '')
+	{
+		$class = (!empty($parm['class'])) ? $parm['class'] : '';
+		return "<a class='ec_next_year {$class}' href='".e_SELF."?".$this->nextLink."'>".$this->ny." &gt;&gt;</a>";
+	}
+
+
+	public function sc_ec_month_list($parm = '')
+	{
+		$ret = '';
+		$class = (!empty($parm['class'])) ? $parm['class'] : '';
+		for ($ii = 0; $ii < 12; $ii++)
+		{
+			$monthJump = gmmktime(0, 0, 0, $ii+1, 1, $this->year);
+			$ret .= "<a class='ec_month_list {$class}' href='".e_SELF."?".$monthJump."'>".$this->monthabb[$ii]."</a> &nbsp;";
+		}
+		return $ret;
+	}
+
+
+	// Navigation buttons
+	
 
 	public function sc_ec_current_month($parm = '')
 	{
@@ -284,30 +315,7 @@ class plugin_calendar_menu_calendar_shortcodes extends e_shortcode
 	}
 
 
-	public function sc_ec_prev_year($parm = '')
-	{
-		return "<a href='".e_SELF."?".$this->prevLink."'>&lt;&lt; ".$this->py."</a>";
-	}
 
-	public function sc_ec_next_year($parm = '')
-	{
-		return "<a href='".e_SELF."?".$this->nextLink."'>".$this->ny." &gt;&gt;</a>";
-	}
-
-
-	public function sc_ec_month_list($parm = '')
-	{
-		$ret = '';
-		for ($ii = 0; $ii < 12; $ii++)
-		{
-			$monthJump = gmmktime(0, 0, 0, $ii+1, 1, $this->year);
-			$ret .= "<a href='".e_SELF."?".$monthJump."'>".$this->monthabb[$ii]."</a> &nbsp;";
-		}
-		return $ret;
-	}
-
-
-	// Navigation buttons
 	public function sc_ec_nav_but_allevents($parm = '')
 	{
 		$allevents = (e_PAGE == "event.php" ? EC_LAN_96 : EC_LAN_93);
