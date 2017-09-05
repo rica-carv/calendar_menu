@@ -40,9 +40,12 @@ if (!defined('USER_WIDTH')){ define('USER_WIDTH','width:auto'); }
   }		// Filename of icon used to flag recent events
 
 
-
+// not used in version 1
+$CALENDARLEGACY_TEMPLATE['calendar']['time_table_start']         = "";
+$CALENDARLEGACY_TEMPLATE['calendar']['time_table_end']  = "";
 
 // TIME SWITCH BUTTONS ------------------------------------------------------------
+/*
 $sc_style['EC_PREV_MONTH']['pre'] = "<span class='defaulttext'>";
 $sc_style['EC_PREV_MONTH']['post'] = "</span>";
 
@@ -59,9 +62,15 @@ $sc_style['EC_MONTH_LIST']['pre'] = '';
 $sc_style['EC_MONTH_LIST']['post'] = '';
 
 $sc_style['EC_NEXT_YEAR']['pre'] = '';
-$sc_style['EC_NEXT_YEAR']['post'] = '';
+$sc_style['EC_NEXT_YEAR']['post'] = ''; */
 
-
+$CALENDARBOOTSTRAP3_WRAPPER['calendar']['EC_PREV_MONTH'] =  "<span class='defaulttext'>{---}</span>";
+$CALENDARBOOTSTRAP3_WRAPPER['calendar']['EC_CURRENT_MONTH'] =  "<b>{---}</b>";
+$CALENDARBOOTSTRAP3_WRAPPER['calendar']['EC_NEXT_MONTH'] =  "<span class='defaulttext'>{---}</span>";
+$CALENDARBOOTSTRAP3_WRAPPER['calendar']['EC_PREV_YEAR'] =  "{---}";
+$CALENDARBOOTSTRAP3_WRAPPER['calendar']['EC_MONTH_LIST'] =  "{---}";
+$CALENDARBOOTSTRAP3_WRAPPER['calendar']['EC_NEXT_YEAR'] =  "{---}";
+ 
 $CALENDARLEGACY_TEMPLATE['calendar']['time_table'] = "
 <table cellpadding='0' cellspacing='1' class='table fborder'>
 <tr>
@@ -76,30 +85,46 @@ $CALENDARLEGACY_TEMPLATE['calendar']['time_table'] = "
 </tr>\n
 </table>";
 
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar']['time_table_end']  = ""; 
+ 
+// NAVIGATION BUTTONS ------------------------------------------------------------
 
-// NAVIGATION BUTTONS
 //$sc_style['NAV_LINKCURRENTMONTH']['pre'] = "<span class='btn button' style='width:120px; '>";
 //$sc_style['NAV_LINKCURRENTMONTH']['post'] = "</span>";
-$sc_style['EC_NAV_LINKCURRENTMONTH']['pre'] = "";
-$sc_style['EC_NAV_LINKCURRENTMONTH']['post'] = "";
+//$sc_style['EC_NAV_LINKCURRENTMONTH']['pre'] = "";
+//$sc_style['EC_NAV_LINKCURRENTMONTH']['post'] = "";
+//$CALENDARLEGACY_WRAPPER['calendar']['EC_NAV_LINKCURRENTMONTH'] =  "<span class='btn button' style='width:120px; '>{---}</span>";
 
-$CALENDARLEGACY_TEMPLATE['calendar']['calendar_navigation_table'] = "
+$CALENDARLEGACY_WRAPPER['calendar']['EC_NAV_LINKCURRENTMONTH'] =  "{---}";
+$CALENDARLEGACY_TEMPLATE['calendar']['navigation_table'] = "
 <div style='text-align:center; margin-bottom:20px;'>
 <form method='post' action='" . e_SELF . "?" . e_QUERY . "' id='calform'>
 <table class='table'>
 <tr>
-<td style='text-align:center;'>{EC_NAV_CATEGORIES} {EC_NAV_BUT_ALLEVENTS} {EC_NAV_BUT_VIEWCAT} {EC_NAV_BUT_ENTEREVENT} {EC_NAV_BUT_SUBSCRIPTION} {EC_NAV_BUT_PRINTLISTS} {EC_NAV_LINKCURRENTMONTH}</td>
+<td style='text-align:center;'>
+{EC_NAV_CATEGORIES} 
+{EC_NAV_BUT_ALLEVENTS} 
+{EC_NAV_BUT_VIEWCAT} 
+{EC_NAV_BUT_ENTEREVENT} 
+{EC_NAV_BUT_SUBSCRIPTION} 
+{EC_NAV_BUT_PRINTLISTS} 
+{EC_NAV_LINKCURRENTMONTH}</td>
 </tr>\n
 </table>
 </form>
 </div>";
 
 
+// NAVIGATION BUTTONS EVENT PAGE
+$CALENDARLEGACY_WRAPPER['event']['EC_NAV_LINKCURRENTMONTH'] =  "{---}";
+
+$CALENDARLEGACY_TEMPLATE['event']['time_table'] = $CALENDARLEGACY_TEMPLATE['calendar']['time_table'];
+$CALENDARLEGACY_TEMPLATE['event']['time_table_end']  = $CALENDARLEGACY_TEMPLATE['calendar']['time_table_end']; 
+$CALENDARLEGACY_TEMPLATE['event']['navigation_table'] = $CALENDARLEGACY_TEMPLATE['calendar']['navigation_table'];
 
 // EVENT LIST ------------------------------------------------------------
-$sc_style['EC_EVENTLIST_CAPTION']['pre'] = "<tr><td class='fcaption' colspan='2'>";
-$sc_style['EC_EVENTLIST_CAPTION']['post'] = ":<br /><br /></td></tr>\n";
+//$sc_style['EC_EVENTLIST_CAPTION']['pre'] = "";
+//$sc_style['EC_EVENTLIST_CAPTION']['post'] = "\n";
+$CALENDARLEGACY_WRAPPER['event']['EC_EVENTLIST_CAPTION'] =  "<tr><td class='fcaption' colspan='2'>{---}:<br /><br /></td></tr>";
 
 $CALENDARLEGACY_TEMPLATE['event']['eventlist_table_start'] = "<table class='table fborder'>{EC_EVENTLIST_CAPTION}";
 $CALENDARLEGACY_TEMPLATE['event']['eventlist_table_end'] = "</table>";
@@ -107,8 +132,10 @@ $CALENDARLEGACY_TEMPLATE['event']['eventlist_table_end'] = "</table>";
 
 
 // EVENT ARCHIVE ------------------------------------------------------------
-$sc_style['EC_EVENTARCHIVE_CAPTION']['pre'] = "<tr><td colspan='2' class='fcaption'>";
-$sc_style['EC_EVENTARCHIVE_CAPTION']['post'] = "</td></tr>\n";
+//$sc_style['EC_EVENTARCHIVE_CAPTION']['pre'] = "<tr><td colspan='2' class='fcaption'>";
+//$sc_style['EC_EVENTARCHIVE_CAPTION']['post'] = "</td></tr>\n";
+
+$CALENDARLEGACY_WRAPPER['event']['EC_EVENTARCHIVE_CAPTION'] =  "<tr><td colspan='2' class='fcaption'>{---}</td></tr>";
 
 $CALENDARLEGACY_TEMPLATE['event']['archive_table_start'] = "<br /><table class='table fborder'>{EC_EVENTARCHIVE_CAPTION}";
 $CALENDARLEGACY_TEMPLATE['event']['archive_table'] = "
@@ -125,6 +152,25 @@ $CALENDARLEGACY_TEMPLATE['event']['archive_table_end'] = "</table>";
 // EVENT SHOW EVENT ------------------------------------------------------------
 $CALENDARLEGACY_TEMPLATE['event']['event_table_start'] = "<table class='table fborder' cellspacing='0' cellpadding='0'>";
 $CALENDARLEGACY_TEMPLATE['event']['event_table_end'] = "</table>";
+
+$CALENDARLEGACY_WRAPPER['event']['EC_EVENT_HEADING_DATE'] =  "{---}";
+$CALENDARLEGACY_WRAPPER['event']['EC_EVENT_DETAILS'] 			=  "<tr><td colspan='2' class='forumheader3'>{---}</td></tr>";
+$CALENDARLEGACY_WRAPPER['event']['EC_EVENT_LOCATION'] 		=  "<tr><td colspan='2' class='forumheader3'><b>".EC_LAN_32."</b>{---}</td></tr>";
+$CALENDARLEGACY_WRAPPER['event']['EC_EVENT_AUTHOR'] =  "<b>".EC_LAN_31."</b>{---}&nbsp;";
+$CALENDARLEGACY_WRAPPER['event']['EC_EVENT_CONTACT'] 			=  "<b>".EC_LAN_33."</b> {---}&nbsp;";
+$CALENDARLEGACY_WRAPPER['event']['EC_EVENT_THREAD'] 		=  "<tr><td colspan='2' class='forumheader3'><span class='smalltext'>".EC_LAN_32."</span></td></tr>";
+
+$CALENDARLEGACY_WRAPPER['event']['EC_EVENT_CATEGORY'] =  "<b>".EC_LAN_30."</b> {---}&nbsp;";
+$CALENDARLEGACY_WRAPPER['event']['EC_EVENT_DATE_START'] 			=  "{---}";
+$CALENDARLEGACY_WRAPPER['event']['EC_EVENT_TIME_START'] 		=  "{---}";
+$CALENDARLEGACY_WRAPPER['event']['EC_EVENT_DATE_END'] =  "{---}";
+$CALENDARLEGACY_WRAPPER['event']['EC_EVENT_EVENT_DATE_TIME'] 			=  "<b>".EC_LAN_29."</b> {---}";
+$CALENDARLEGACY_WRAPPER['event']['EC_IFNOT_ALLDAY'] 		=  EC_LAN_144."{---}";
+
+$CALENDARLEGACY_TEMPLATE['event']['event_table_start'] = "<table class='table fborder event_table_start'>";
+$CALENDARLEGACY_TEMPLATE['event']['event_table_end'] = "</table>";
+
+/*
 
 $sc_style['EC_EVENT_HEADING_DATE']['pre'] = "";
 $sc_style['EC_EVENT_HEADING_DATE']['post'] = "";
@@ -164,7 +210,7 @@ $sc_style['EC_EVENT_EVENT_DATE_TIME']['post'] = '';
 
 $sc_style['EC_IFNOT_ALLDAY']['pre'] = EC_LAN_144;
 $sc_style['EC_IFNOT_ALLDAY']['post'] = "";
-
+	*/
 // The $EVENT_EVENT_DATETIME strings are used with the EC_EVENT_EVENT_DATE_TIME shortcode.
 // There are four cases, each with a corresponding index into $EVENT_EVENT_DATETIME:
 // 	0 - Normal event, starting and finishing on different dates (the 'original' default)
