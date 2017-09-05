@@ -407,7 +407,7 @@ if($action == 'cat')
 									 'event_id' => '6');
 				
 				// *************** SEND EMAIL HERE **************
-				  require_once(e_PLUGIN.'calendar_menu/calendar_shortcodes.php');
+				  //require_once(e_PLUGIN.'calendar_menu/calendar_shortcodes.php'); WHY???? 
 				  require_once(e_HANDLER . 'mail.php');
 				  switch ($ecal_send_email)
 				  {

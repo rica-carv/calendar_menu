@@ -39,21 +39,23 @@ if($cacheData = $e107->ecache->retrieve($cache_tag, $ecal_class->max_cache_time)
 	return;
 }
 
-
 include_lan(e_PLUGIN.'calendar_menu/languages/'.e_LANGUAGE.'.php');
+$calSc = e107::getScBatch('calendar', 'calendar_menu');
 
-require_once(e_PLUGIN.'calendar_menu/calendar_shortcodes.php');
-$calSc = new event_calendar_shortcodes();
+//require_once(e_PLUGIN.'calendar_menu/calendar_shortcodes.php');
+//$calSc = new event_calendar_shortcodes();
 
 /* for now, both templates are the same */
 if(deftrue('BOOTSTRAP') === 3)  {
    $calendartemplate   = e107::getTemplate('calendar_menu', 'calendarbootstrap3' , 'next_event_menu' );
+   $calSc->wrapper('calendarbootstrap3/next_event_menu'); // default.
 }
 else {
 	 $calendartemplate   = e107::getTemplate('calendar_menu', 'calendarlegacy' , 'next_event_menu' );
+	 $calSc->wrapper('calendarlegacy/next_event_menu'); // default.
 
 }
- 
+
 $EVENT_CAL_FE_LINE = $calendartemplate['cal_fe_line'];
 
 // Values defined through admin pages
@@ -75,6 +77,7 @@ $calSc->ecalClass = &$ecal_class;			// Give shortcodes a pointer to calendar cla
 $ev_list = $ecal_class->get_n_events($show_count, $start_time, $end_time, varset($ecal_class->pref['eventpost_fe_set'],FALSE), $show_recurring, 
 						'event_id,event_start, event_thread, event_title, event_recurring, event_allday, event_category', 'event_cat_icon');
 
+
 $cal_totev = count($ev_list);
 
 if ($cal_totev > 0)
@@ -84,6 +87,7 @@ if ($cal_totev > 0)
 		$cal_totev --;    // Can use this to modify inter-event gap
 		$calSc->numEvents = $cal_totev;				// Number of events to display
 		$calSc->event = $thisEvent;					// Give shortcodes the event data
+		
 		$cal_text .= $tp->parseTemplate($EVENT_CAL_FE_LINE,FALSE, $calSc);
 	}
 }
