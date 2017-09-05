@@ -303,14 +303,17 @@ $CALENDARLEGACY_TEMPLATE['calendar_menu']['day_end']['6'] = "</td>";
 
 //============================================================================
 // Next event menu template
-$sc_style['EC_NEXT_EVENT_TIME']['pre'] = EC_LAN_144;
-$sc_style['EC_NEXT_EVENT_TIME']['post'] = "";
+//$sc_style['EC_NEXT_EVENT_TIME']['pre'] = EC_LAN_144;
+//$sc_style['EC_NEXT_EVENT_TIME']['post'] = "";
 // Following are original styles
 //$sc_style['NEXT_EVENT_ICON']['pre'] = "<img style='border:0px' src='";
 //$sc_style['NEXT_EVENT_ICON']['post'] = "' alt='' />&nbsp;";
 // Following to 'float right' on a larger icon
-$sc_style['EC_NEXT_EVENT_ICON']['pre'] = "<img style='clear: right; float: left; margin: 0px 3px 0px 0px; padding:1px; border: 0px;' src='";
-$sc_style['EC_NEXT_EVENT_ICON']['post'] = "' alt='' />";
+//$sc_style['EC_NEXT_EVENT_ICON']['pre'] = "<img style='clear: right; float: left; margin: 0px 3px 0px 0px; padding:1px; border: 0px;' src='";
+//$sc_style['EC_NEXT_EVENT_ICON']['post'] = "' alt='' />";
+
+$CALENDARLEGACY_WRAPPER['next_event_menu']['EC_NEXT_EVENT_TIME'] = EC_LAN_144."{---}";
+$CALENDARLEGACY_WRAPPER['next_event_menu']['EC_NEXT_EVENT_ICON'] = "<img style='clear: right; float: left; margin: 0px 3px 0px 0px; padding:1px; border: 0px;' src='{---}' alt='' />";
 
 $CALENDARLEGACY_TEMPLATE['next_event_menu']['cal_fe_line'] = "{EC_NEXT_EVENT_RECENT_ICON}{EC_NEXT_EVENT_ICON}{EC_NEXT_EVENT_DATE}{EC_NEXT_EVENT_TIME}<br /><strong>{EC_NEXT_EVENT_TITLE}</strong>{EC_NEXT_EVENT_GAP}";
 
