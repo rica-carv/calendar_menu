@@ -43,58 +43,34 @@ if (!defined('USER_WIDTH')){ define('USER_WIDTH','width:auto'); }
 
 // TIMETABLE -------------------------------------------------------------------
 
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar']['time_table_start']       = "<div class='e107_calendar'>";
+$CALENDARBOOTSTRAP3_TEMPLATE['calendar']['time_table_start']       = "<div class='calendar-wrapper'>";
 $CALENDARBOOTSTRAP3_TEMPLATE['calendar']['time_table_end']         = "</div>";
 
  
 // TIME SWITCH BUTTONS ---------------------------------------------------------
 
 $CALENDARBOOTSTRAP3_WRAPPER['calendar']['EC_PREV_MONTH'] =  "<span class='defaulttext'>{---}</span>";
-$CALENDARBOOTSTRAP3_WRAPPER['calendar']['EC_CURRENT_MONTH'] =  "<b>{---}</b>";
+$CALENDARBOOTSTRAP3_WRAPPER['calendar']['EC_CURRENT_MONTH'] =  "<h2><b>{---}</b></h2>";
 $CALENDARBOOTSTRAP3_WRAPPER['calendar']['EC_NEXT_MONTH'] =  "<span class='defaulttext'>{---}</span>";
 $CALENDARBOOTSTRAP3_WRAPPER['calendar']['EC_PREV_YEAR'] =  "{---}";
 $CALENDARBOOTSTRAP3_WRAPPER['calendar']['EC_MONTH_LIST'] =  "{---}";
 $CALENDARBOOTSTRAP3_WRAPPER['calendar']['EC_NEXT_YEAR'] =  "{---}";
-$CALENDARBOOTSTRAP3_TEMPLATE['calendar']['time_table'] = "
-<table cellpadding='0' cellspacing='1' class='table fborder'>
-<tr>
-	<td class='forumheader' style='width:18%; text-align:left'>{EC_PREV_MONTH}</td>
-	<td class='fcaption' style='width:64%; text-align:center'>{EC_CURRENT_MONTH}</td>
-	<td class='forumheader' style='width:18%; text-align:right'>{EC_NEXT_MONTH}</td>
-</tr>\n
-<tr>
-	<td class='forumheader3' style='text-align:left'>{EC_PREV_YEAR}</td>
-	<td class='fcaption' style='text-align:center; vertical-align:middle'>{EC_MONTH_LIST}</td>
-	<td class='forumheader3' style='text-align:right'>{EC_NEXT_YEAR}</td>
-</tr>\n
-</table>";
  
-
-/* doesnt work in Firefox
 $CALENDARBOOTSTRAP3_TEMPLATE['calendar']['time_table']  = " 
-<div class='calendar-wrapper'>
+ 
   <div class='calendar-navigation'>
-    <div class='row forumheader hidden-xs'>
-      <div class='month-browser col-md-12  text-center '>
-      	<button class='calendar_nav btn btn-default pull-left'>	{EC_PREV_MONTH} </button>
-      	<button class='current-month btn btn-primary'>	<b>{EC_CURRENT_MONTH}</b> </button>	
-        <button class='calendar_nav btn btn-default pull-right'>	{EC_NEXT_MONTH}		</button>
+    <div class='month-browser row text-center'>     
+      	<div class='calendar_nav col-xs-12 col-sm-3 col-md-2 '>	{EC_PREV_MONTH: class=btn btn-default} </div>
+      	<div class='current-month col-xs-12 col-sm-6 col-md-8'>	<b>{EC_CURRENT_MONTH: class=btn btn-primary}</b> </div>	
+        <div class='calendar_nav col-xs-12 col-sm-3 col-md-2 '>	{EC_NEXT_MONTH: class=btn btn-default}		</div>
       </div>
-    </div>   
-    <div class='row forumheader visible-xs text-center'> 
-      	<button class='calendar_nav btn btn-default col-xs-12'>	{EC_PREV_MONTH} </button>
-      	<button class='current-month btn btn-primary col-xs-12'>	<b>{EC_CURRENT_MONTH}</b> </button>	
-        <button class='calendar_nav btn btn-default col-xs-12'>	{EC_NEXT_MONTH}		</button>
-    </div>
-    <div class='row forumheader'>
-      <div class='year-browser  col-md-12  text-center'>
-      	<button class='calendar_nav btn btn-default pull-left'>	{EC_PREV_YEAR} </button>
-      	<button class='current-month btn btn-default hidden-xs'>	<b>{EC_MONTH_LIST}</b> </button>	
-        <button class='calendar_nav btn btn-default pull-right'>	{EC_NEXT_YEAR}	</button>
-      </div>
+    <div class='year-browser row  text-center'>   
+      	<div class='calendar_nav col-xs-12 col-sm-3 col-md-2 '>	{EC_PREV_YEAR: class=btn btn-primary} </div>
+      	<div class='current-month col-xs-12 col-sm-6 col-md-8 hidden-xs '>	<b>{EC_MONTH_LIST: class=btn btn-primary}</b> </div>	
+        <div class='calendar_nav col-xs-12 col-sm-3 col-md-2 '>	{EC_NEXT_YEAR: class=btn btn-primary}	</div>     
     </div>
   </div>
- ";  */
+ ";  
  
 // NAVIGATION BUTTONS CALENDAR PAGE --------------------------------------------
  
