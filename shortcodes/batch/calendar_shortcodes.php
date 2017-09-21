@@ -619,13 +619,19 @@ class plugin_calendar_menu_calendar_shortcodes extends e_shortcode
 	}
 
 
-	public function sc_ec_showevent_image()
+	public function sc_ec_showevent_image($parm = '')
 	{
 		//TODO review bullet
-		$img = '';
-		if($this->event['event_cat_icon'] && file_exists(e_PLUGIN.'calendar_menu/images/'.$this->event['event_cat_icon']))
+		$img = '';         
+		if($this->event['event_cat_icon'])
 		{
-			$img = "<img style='border:0' src='".e_PLUGIN_ABS.'calendar_menu/images/'.$this->event['event_cat_icon']."' alt='' height='".$this->event['imagesize']."' width='".$this->event['imagesize']."' />";
+			// WARNING todo  $this->event['imagesize' doesnt work!!!!
+			$w = varset($parm['w'], $this->event['imagesize']);
+			$h = varset($parm['h'], $this->event['imagesize']);
+			$parm = array("w" => $w, "h" => $h, "class"=> "showevent_image img-responsive img-fluid" );
+		 
+			//$img = "<img style='border:0' src='".e_PLUGIN_ABS.'calendar_menu/images/'.$this->event['event_cat_icon']."' alt='' height='".$this->event['imagesize']."' width='".$this->event['imagesize']."' />";
+			$img = $this->sc_ec_event_cat_icon($parm);
 		}
 		elseif(defined('BULLET'))
 		{
@@ -728,11 +734,26 @@ class plugin_calendar_menu_calendar_shortcodes extends e_shortcode
 	}
 
 
-	public function sc_ec_event_cat_icon()
+	public function sc_ec_event_cat_icon($parm='')
 	{
-		if ($this->event['event_cat_icon'] && is_readable(e_PLUGIN.'calendar_menu/images/'.$this->event['event_cat_icon']))
-		{
-			return "<img src='".e_PLUGIN_ABS."calendar_menu/images/".$this->event['event_cat_icon']."' alt='' /> ";
+		if ($this->event['event_cat_icon']  )
+		{          
+			 // WARNING TODO e107::getParser()->thumbWidth() doesn't work
+			 $class = varset($parm['class'], 'event_cat_icon img-responsive img-fluid');
+			 $w = vartrue($parm['w']) ? $parm['w'] : e107::getParser()->thumbWidth(); // 190; // 160;
+		   $h = vartrue($parm['h']) ? $parm['h'] : e107::getParser()->thumbHeight(); // 130;
+			 $opts = array(
+              'legacy' => "{e_PLUGIN}calendar_menu/images/'",
+              'class'  => $class,
+              'alt'    => $this->var['event_cat_icon'],
+              'w' => $w, 
+							'h' => $h, 							
+							'alt' => $caption,
+							'x' => 1, 
+							'crop' => 1
+         );
+			$fe_icon_file  = e107::getParser()->toImage($this->event['event_cat_icon'], $opts);
+			return $fe_icon_file;
 		}
 		return '';
 	}
@@ -957,22 +978,32 @@ class plugin_calendar_menu_calendar_shortcodes extends e_shortcode
 	}
 
 
-	public function sc_ec_next_event_icon()
+	public function sc_ec_next_event_icon($parm = '')
 	{
 		$fe_icon_file = '';
+ 
 		if ($this->ecalClass->pref['eventpost_showcaticon'] == 1)
 		{
-			if($this->event['event_cat_icon'] && is_readable(e_PLUGIN.'calendar_menu/images/'.$this->event['event_cat_icon']))
-			{
-				$fe_icon_file = e_PLUGIN_ABS.'calendar_menu/images/'.$this->event['event_cat_icon'];
+			if($this->event['event_cat_icon'])
+			{ 
+			// WARNING todo  $this->event['imagesize' doesnt work!!!!
+			$w = varset($parm['w'], $this->event['imagesize']);
+			$h = varset($parm['h'], $this->event['imagesize']);
+			$parm = array("w" => $w, "h" => $h, "class"=> "showevent_image img-responsive img-fluid" );
+		 
+			//$img = "<img style='border:0' src='".e_PLUGIN_ABS.'calendar_menu/images/'.$this->event['event_cat_icon']."' alt='' height='".$this->event['imagesize']."' width='".$this->event['imagesize']."' />";
+			$fe_icon_file = $this->sc_ec_event_cat_icon($parm);
+ 
 			}
 			elseif(defined('BULLET'))
 			{
 				$fe_icon_file = THEME_ABS.'images/'.BULLET;
+				$fe_icon_file = "<img class='img-responsive' src='".$fe_icon_file."' alt='' />";
 			}
 			elseif(file_exists(THEME.'images/bullet2.gif'))
 			{
 				$fe_icon_file = THEME_ABS.'images/bullet2.gif';
+				$fe_icon_file = "<img class='img-responsive' src='".$fe_icon_file."' alt='' />";
 			}
 		}
 		return $fe_icon_file;

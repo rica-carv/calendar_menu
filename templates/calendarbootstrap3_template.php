@@ -109,7 +109,7 @@ $CALENDARBOOTSTRAP3_TEMPLATE['calendar']['calendar_day_event']    = "
 
 // display events ------------------------------------------------------------
 $CALENDARBOOTSTRAP3_TEMPLATE['calendar']['showevent'] = "
-  <div class='show-info forumheader'> {EC_SHOWEVENT_IMAGE} {EC_SHOWEVENT_INDICAT}  {EC_SHOWEVENT_HEADING}
+  <div class='show-info forumheader'>{EC_SHOWEVENT_IMAGE: w=20&h=20} {EC_SHOWEVENT_INDICAT}  {EC_SHOWEVENT_HEADING}
     <div class='show-time'>
       {EC_CALENDAR_CALENDAR_RECENT_ICON}
     </div>
@@ -182,10 +182,13 @@ $CALENDARBOOTSTRAP3_TEMPLATE['event']['event_datetime'][1]  = "{EC_EVENT_DATE_ST
 $CALENDARBOOTSTRAP3_TEMPLATE['event']['event_datetime'][2]  = "{EC_EVENT_DATE_START} <b>".EC_LAN_69."</b> {EC_EVENT_DATE_END}";
 $CALENDARBOOTSTRAP3_TEMPLATE['event']['event_datetime'][3]  = "{EC_EVENT_DATE_START}";
 
-$CALENDARBOOTSTRAP3_TEMPLATE['event']['event_table'] = "
+$CALENDARBOOTSTRAP3_TEMPLATE['event']['event_table'] = " {SETIMAGE: w=100&h=100}  
 <tr>
   <td >
-	<a href='#{EC_EVENT_ID}' class='e-show-if-js e-expandit fcaption' style='display:inline-block; cursor:pointer; text-align:left; border:0px solid #000; width:100%' title='".EC_LAN_132."'>{EC_EVENT_RECENT_ICON}{EC_EVENT_CAT_ICON}{EC_EVENT_HEADING_DATE}{EC_IFNOT_ALLDAY=EC_EVENT_TIME_START}&nbsp;-&nbsp;{EC_EVENT_TITLE}</a>
+	<a href='#{EC_EVENT_ID}' class='e-show-if-js e-expandit fcaption' style='display:inline-block; cursor:pointer; text-align:left; border:0px solid #000; width:100%' title='".EC_LAN_132."'>
+	{EC_EVENT_RECENT_ICON}
+	{EC_EVENT_CAT_ICON: w=100}
+	{EC_EVENT_HEADING_DATE}{EC_IFNOT_ALLDAY=EC_EVENT_TIME_START}&nbsp;-&nbsp;{EC_EVENT_TITLE}</a>
 	<div id='{EC_EVENT_ID}' {EC_EVENT_DISPLAYCLASS} style='padding-top:10px; padding-bottom:10px; text-align:left;'>
 	  <table style='width:100%;'  cellspacing='0' cellpadding='0'>
 		<tr><td colspan='2' class='forumheader3'>{EC_EVENT_AUTHOR} {EC_EVENT_CAT_ICON} {EC_EVENT_CATEGORY} {EC_EVENT_CONTACT} {EC_EVENT_OPTIONS}</td></tr>
@@ -259,11 +262,11 @@ $CALENDARBOOTSTRAP3_TEMPLATE['calendar_menu']['day_end']['6'] = "</div></td>";
 //============================================================================
 // Next event menu template
 $CALENDARBOOTSTRAP3_WRAPPER['next_event_menu']['EC_NEXT_EVENT_TIME'] = EC_LAN_144."{---}";
-$CALENDARBOOTSTRAP3_WRAPPER['next_event_menu']['EC_NEXT_EVENT_ICON'] = "<img class='img-responsive' src='{---}' alt='' />";
+ 
 
 $CALENDARBOOTSTRAP3_TEMPLATE['next_event_menu']['cal_fe_line'] = "
 {EC_NEXT_EVENT_RECENT_ICON}  
-{EC_NEXT_EVENT_ICON}    
+{EC_NEXT_EVENT_ICON: w=100}    
 {EC_NEXT_EVENT_DATE}    
 {EC_NEXT_EVENT_TIME}    
 <br />
