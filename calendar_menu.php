@@ -41,15 +41,27 @@ if($cacheData = $e107->ecache->retrieve($cache_tag, $ecal_class->max_cache_time)
 }
 include_lan(e_PLUGIN.'calendar_menu/languages/'.e_LANGUAGE.'.php');
 
-// Doesn't use shortcodes - rather a specific format for that
-if (is_readable(THEME.'calendar_template.php')) 
-{  // Has to be require
-	require(THEME.'calendar_template.php');
+/* for now, both templates are the same */
+if(deftrue('BOOTSTRAP') === 3)  {
+   $calendartemplate   = e107::getTemplate('calendar_menu', 'calendarbootstrap3');
 }
-else 
-{
-	require(e_PLUGIN.'calendar_menu/calendar_template.php');
+else {
+	 $calendartemplate   = e107::getTemplate('calendar_menu', 'calendarlegacy'  );
+
 }
+
+$CALENDAR_MENU_HDG_LINK_CLASS  = $calendartemplate['calendar_menu']['hdg_link_class'];
+$CALENDAR_MENU_START           = $calendartemplate['calendar_menu']['start'];
+$CALENDAR_MENU_TABLE_START     = $calendartemplate['calendar_menu']['table_start'];
+$CALENDAR_MENU_END             = $calendartemplate['calendar_menu']['end'];
+$CALENDAR_MENU_DAY_NON         = $calendartemplate['calendar_menu']['day_non'];
+$CALENDAR_MENU_HEADER_START    = $calendartemplate['calendar_menu']['header_start'];
+$CALENDAR_MENU_HEADER_FRONT    = $calendartemplate['calendar_menu']['header_front'];
+$CALENDAR_MENU_HEADER_BACK     = $calendartemplate['calendar_menu']['header_back'];
+$CALENDAR_MENU_HEADER_END      = $calendartemplate['calendar_menu']['header_end'];
+$CALENDAR_MENU_WEEKSWITCH      = $calendartemplate['calendar_menu']['weekswitch'];
+$CALENDAR_MENU_DAY_START       = $calendartemplate['calendar_menu']['day_start'];
+$CALENDAR_MENU_DAY_END         = $calendartemplate['calendar_menu']['day_end'];
 
 $show_recurring = TRUE;		// Could be pref later
 $cat_filter = '*';			// Could be another pref later.

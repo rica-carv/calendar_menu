@@ -24,7 +24,8 @@ $e_sub_cat = 'event_calendar';
 require_once('../../class2.php');
 if (!getperms('P')) 
 {
-  header('location:'.e_BASE.'index.php');
+  //headerx('location:'.e_BASE.'index.php');
+  e107::redirect();
   exit;
 }
 	
@@ -315,11 +316,11 @@ if($action == 'cat')
 
 	if (is_readable(THEME.'ec_mailout_template.php')) 
 	{  // Has to be require
-		require(THEME.'ec_mailout_template.php');
+		require(THEME.'templates/calendar_menu/ec_mailout_template.php');
 	}
 	else 
 	{
-		require(e_PLUGIN.'calendar_menu/ec_mailout_template.php');
+		require(e_PLUGIN.'calendar_menu/templates/ec_mailout_template.php');
 	}
 	$calendarmenu_db = new DB;
 	$calendarmenu_action = '';
@@ -406,7 +407,7 @@ if($action == 'cat')
 									 'event_id' => '6');
 				
 				// *************** SEND EMAIL HERE **************
-				  require_once(e_PLUGIN.'calendar_menu/calendar_shortcodes.php');
+				  //require_once(e_PLUGIN.'calendar_menu/calendar_shortcodes.php'); WHY???? 
 				  require_once(e_HANDLER . 'mail.php');
 				  switch ($ecal_send_email)
 				  {

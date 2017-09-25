@@ -13,6 +13,10 @@ if (substr(e_PAGE, 0, 8) == 'calendar')  {
     });"; 
    e107::js('footer-inline',$footerscript,'jquery');
 }
-
+if (substr(e_PAGE, 0, 5) == 'event')  {
+ 
+   e107::css('calendar_menu', 'css/event.css' );
+ 
+}
 
 ?>

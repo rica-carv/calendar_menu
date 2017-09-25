@@ -41,7 +41,12 @@ if (!defined('e_SINGLE_ENTRY'))
 $e107 = e107::getInstance();
 $tp = e107::getParser();
 
-if (!$e107->isInstalled('calendar_menu')) header('Location: '.e_BASE.'index.php');
+if (!$e107->isInstalled('calendar_menu')) 
+{
+  //headerx('location:'.e_BASE.'index.php');
+  e107::redirect();
+  exit;
+}
 include_lan(e_PLUGIN.'calendar_menu/languages/'.e_LANGUAGE.'.php');
 define('PAGE_NAME', EC_LAN_80);
 
@@ -58,8 +63,11 @@ unset($ec_qs);
 if (e_QUERY) $ec_qs = explode('.', e_QUERY); 
 else
 {
-  if (!isset($ecal_class->pref['eventpost_printlists']) || ($ecal_class->pref['eventpost_printlists'] == 0))
-    header('location:'.SITEURL);   // If disabled, just go back to index page
+  if (!isset($ecal_class->pref['eventpost_printlists']) || ($ecal_class->pref['eventpost_printlists'] == 0))  {
+    //headerx('location:'.SITEURL);   // If disabled, just go back to index page
+    e107::redirect();
+	  exit;
+	}
 }
 
 if (isset($_POST['set_dates']) && isset($_POST['start_date']) && (isset($_POST['end_date'])))
@@ -88,9 +96,9 @@ $cal_super = $ecal_class->cal_super;
 $EVENT_CAL_PDF_HEADER = array();
 $EVENT_CAL_PDF_BODY   = array();
 $EVENT_CAL_PDF_FOOTER = array();
-if (is_readable(e_PLUGIN.'calendar_menu/ec_pf_template.php')) require_once(e_PLUGIN.'calendar_menu/ec_pf_template.php');
-if (is_readable(e_PLUGIN.'calendar_menu/ec_pf_user_template.php')) require_once(e_PLUGIN.'calendar_menu/ec_pf_user_template.php');
-if (is_readable(THEME.'ec_pf_template.php')) require_once(THEME.'ec_pf_template.php');
+if (is_readable(e_PLUGIN.'calendar_menu/templates/ec_pf_template.php')) require_once(e_PLUGIN.'calendar_menu/templates/ec_pf_template.php');
+if (is_readable(e_PLUGIN.'calendar_menu/templates/ec_pf_user_template.php')) require_once(e_PLUGIN.'calendar_menu/templates/ec_pf_user_template.php');
+if (is_readable(THEME.'templates/calendar_menu/ec_pf_template.php')) require_once(THEME.'templates/calendar_menu/ec_pf_template.php');
 
 // Hard-coded alternatives
 if (!count($EVENT_CAL_PDF_HEADER)) $EVENT_CAL_PDF_HEADER['default'] = '<br />';
@@ -452,14 +460,15 @@ function gen_drop($drop_type, $ecal_class)
 
 	// Get date to be 1st of month
 	$date = $ecal_class->gmgetdate($match_date);
-	$match_date = gmmktime(0,0,0,$date['mon'],1,$date['year'],FALSE);
- 
+	//$match_date = gmmktime(0,0,0,$date['mon'],1,$date['year'],FALSE);
+  $match_date = gmmktime(0,0,0,$date['mon'],1,$date['year']);
 	for ($i = 0; $i < 24; $i++)
 	{ 
 		$sel_text = (($match_date == $start_date) ? "selected='selected'" : "");
 		$date = $ecal_class->gmgetdate($start_date);
 		$text .= "<option value = '{$date['year']}{$date['mon']}' {$sel_text}>{$date['month']} {$date['year']} </option>\n";
-		$start_date = gmmktime(0,0,0,$date['mon']+1,1,$date['year'],FALSE);
+		//$start_date = gmmktime(0,0,0,$date['mon']+1,1,$date['year'],FALSE);
+		$start_date = gmmktime(0,0,0,$date['mon']+1,1,$date['year']);
 	}
 	$text .= "</select>\n";
 	return $text;

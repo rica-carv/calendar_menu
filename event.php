@@ -29,31 +29,40 @@ $tp = e107::getParser();
 
 if (!$e107->isInstalled('calendar_menu'))
 {
-	header('Location: '.e_BASE.'index.php');
-	exit();
+	//headerx('Location: '.e_BASE.'index.php');
+  e107::redirect();
+  exit;
 }
 
 if (isset($_POST['viewallevents']))
 {  // Triggered from NAV_BUT_ALLEVENTS
-    Header('Location: '.e_PLUGIN_ABS.'calendar_menu/calendar.php?'.$_POST['enter_new_val']);
+  //  Headerx('Location: '.e_PLUGIN_ABS.'calendar_menu/calendar.php?'.$_POST['enter_new_val']);
+  $url = e_PLUGIN_ABS.'calendar_menu/calendar.php?'.$_POST['enter_new_val'];
+	e107::redirect($url);
 	exit();
 }
 
 if (isset($_POST['doit']))
 {  // Triggered from NAV_BUT_ENTEREVENT
-    Header('Location: '.e_PLUGIN_ABS.'calendar_menu/event.php?ne.'.$_POST['enter_new_val']);
+   // Headerx('Location: '.e_PLUGIN_ABS.'calendar_menu/event.php?ne.'.$_POST['enter_new_val']);
+  $url = e_PLUGIN_ABS.'calendar_menu/event.php?ne.'.$_POST['enter_new_val'];
+	e107::redirect($url);    
 	exit();
 }
 
 if (isset($_POST['subs']))
 {
-    Header('Location: '.e_PLUGIN_ABS.'calendar_menu/subscribe.php');
+  //  Headerx('Location: '.e_PLUGIN_ABS.'calendar_menu/subscribe.php');
+  $url = e_PLUGIN_ABS.'calendar_menu/subscribe.php';
+	e107::redirect($url);     
 	exit();
 }
 
 if (isset($_POST['printlists']))
 {
-    Header('Location: '.e_PLUGIN_ABS.'calendar_menu/ec_pf_page.php');
+  //   Headerx('Location: '.e_PLUGIN_ABS.'calendar_menu/ec_pf_page.php');
+  $url = e_PLUGIN_ABS.'calendar_menu/ec_pf_page.php';
+	e107::redirect($url);   
 	exit();
 } 
 
@@ -65,9 +74,9 @@ if (!is_object($ecal_class)) $ecal_class = new ecal_class;
 $cal_super = $ecal_class->cal_super;
 
 
-require_once(e_PLUGIN.'calendar_menu/calendar_shortcodes.php');
-$calSc = new event_calendar_shortcodes();
-
+//require_once(e_PLUGIN.'calendar_menu/calendar_shortcodes.php');
+//$calSc = new event_calendar_shortcodes();
+$calSc = e107::getScBatch('calendar', 'calendar_menu');
 
 $cat_filter = intval(varset($_POST['event_cat_ids'],-1));
 if ($cat_filter == -1) $cat_filter = '*';
@@ -99,11 +108,15 @@ if ((isset($_POST['ne_insert']) || isset($_POST['ne_update'])) && ($cal_super  |
 	$ev_start = $ecal_class->make_date($_POST['ne_hour'], $_POST['ne_minute'],$_POST['start_date']);
 	if (($_POST['ne_event'] == '') || !isset($_POST['qs']))
 	{	// Problem - tell user to go away - fields are blank (mostly checked by JS)
-		header('location:event.php?'.$ev_start.'.0.m3');
+		//headerx('location:event.php?'.$ev_start.'.0.m3'); 
+		$url = e_PLUGIN_ABS.'calendar_menu/event.php?'.$ev_start.'.0.m3';
+		e107::redirect($url); 
 	}
 	elseif (!isset($_POST['ne_category']) || (($ev_category = intval($_POST['ne_category'])) == 0))
 	{
-		header('location:event.php?'.$ev_start.'.0.m6');
+		//headerx('location:event.php?'.$ev_start.'.0.m6');
+		$url = e_PLUGIN_ABS.'calendar_menu/event.php?'.$ev_start.'.0.m6';
+		e107::redirect($url); 
 	}
 	else
 	{
@@ -114,13 +127,16 @@ if ((isset($_POST['ne_insert']) || isset($_POST['ne_update'])) && ($cal_super  |
 				$row = $sql->db_Fetch(MYSQL_ASSOC);
 				if (!check_class($row['event_cat_addclass']))
 				{
-					header('location:event.php?'.$ev_start.'.0.m8');
+					//headerx('location:event.php?'.$ev_start.'.0.m8');
+					$url = e_PLUGIN_ABS.'calendar_menu/event.php?'.$ev_start.'.0.m8';
+					e107::redirect($url); 
 					exit;
 				}
 			}
 			else
 			{		// Invalid category - definitely go away!
-				header('location:'.e_BASE.'index.php');
+				//headerx('location:'.e_BASE.'index.php');
+				e107::redirect();
 				exit;
 			}
 		}
@@ -160,7 +176,7 @@ if ((isset($_POST['ne_insert']) || isset($_POST['ne_update'])) && ($cal_super  |
 				$qry = " 0, '".intval($ev_start)."', '".intval($ev_end)."', '".$ev_allday."', '".$recurring."', '".time()."', '$ev_title', '$ev_location', '$ev_event', '".USERID.".".USERNAME."', '".$ev_email."', '".$ev_category."', '".$ev_thread."', '".intval($rec_m)."', '".intval($rec_y)."' ";
 				$sql->db_Insert('event', $qry);
 	
-				$id = mysql_insert_id();
+				$id = mysqli_insert_id();
 				$data = array('method'=>'create', 'table'=>'event', 'id'=>$id, 'plugin'=>'calendar_menu', 'function'=>'dbCalendarCreate');
 				$e_event->triggerHook($data);
 	
@@ -183,9 +199,11 @@ if ((isset($_POST['ne_insert']) || isset($_POST['ne_update'])) && ($cal_super  |
 		}
 		if ($mult_count <= 1)
 		{
-		// Now clear cache  - just do the lot for now - get clever later
-		$e107cache->clear('nq_event_cal');
-		header('location:event.php?'.$ev_start.'.'.$qs.$report_msg);
+			// Now clear cache  - just do the lot for now - get clever later
+			$e107cache->clear('nq_event_cal');
+			//headerx('location:event.php?'.$ev_start.'.'.$qs.$report_msg);
+			$url = e_PLUGIN_ABS.'calendar_menu/event.php?'.$ev_start.'.'.$qs.$report_msg;
+			e107::redirect($url); 
 		}
 	}
 }
@@ -675,8 +693,10 @@ if ($action == 'ne' || $action == 'ed')
     }
     else
     {
-		header('location:'.e_PLUGIN.'calendar_menu/event.php');
-        exit();
+			//headerx('location:'.e_PLUGIN.'calendar_menu/event.php');
+			$url = e_PLUGIN_ABS.'calendar_menu/calendar_menu/event.php';
+			e107::redirect($url);
+	    exit();
     }
 }   // End of "Enter New Event"
 
@@ -685,15 +705,34 @@ if ($action == 'ne' || $action == 'ed')
 // show events
 // $month, $year have the month required
 //-----------------------------------------------
-if (is_readable(THEME.'calendar_template.php')) 
-{  // Has to be require
-	require(THEME.'calendar_template.php');
+ 		 
+if(deftrue('BOOTSTRAP') === 3)  {
+   $calendartemplate   = e107::getTemplate('calendar_menu', 'calendarbootstrap3' , 'event');
+   $calSc->wrapper('calendarbootstrap3/event');  
 }
-else 
-{
-	require(e_PLUGIN.'calendar_menu/calendar_template.php');
-}
+else {
+	 $calendartemplate   = e107::getTemplate('calendar_menu', 'calendarlegacy', 'event');
+	 $calSc->wrapper('calendarlegacy/event');  
+} 
+  
+$EVENT_TIME_TABLE_START						= $calendartemplate['time_table_start'];         
+$EVENT_TIME_TABLE									= $calendartemplate['time_table']; 
+$EVENT_TIME_TABLE_END							= $calendartemplate['time_table_end'];
 
+$EVENT_NAVIGATION_TABLE						= $calendartemplate['navigation_table'];	          
+$EVENT_EVENT_TABLE_START					= $calendartemplate['event_table_start'];
+$EVENT_EVENT_TABLE								= $calendartemplate['event_table'];
+$EVENT_EVENT_TABLE_END						= $calendartemplate['event_table_end'];
+$EVENT_EVENTLIST_TABLE_START			= $calendartemplate['eventlist_table_start'];
+$EVENT_EVENTLIST_TABLE_END				= $calendartemplate['eventlist_table_end'];
+$EVENT_ARCHIVE_TABLE							= $calendartemplate['archive_table'];
+$EVENT_ARCHIVE_TABLE_EMPTY				= $calendartemplate['archive_table_empty'];
+$EVENT_ARCHIVE_TABLE_START				= $calendartemplate['archive_table_start'];
+$EVENT_ARCHIVE_TABLE_END					= $calendartemplate['archive_table_end'];
+
+$EVENT_EVENT_DATETIME							= $calendartemplate['event_datetime'];
+ 
+ 
 $calSc->ecalClass = &$ecal_class;					// Give shortcodes a pointer to calendar class
 $calSc->setCalDate($dateArray);					// Tell shortcodes the date to display
 $calSc->catFilter = $cat_filter;					// Category filter
@@ -707,11 +746,13 @@ $nowyear	= $ecal_class->cal_date['year'];
 
 
 $text2 = "";
+//start
+$text2 .= $tp->parseTemplate($EVENT_TIME_TABLE_START, FALSE, $calSc);    /*ok*/
 // time switch buttons
-$text2 .= $tp->parseTemplate($CALENDAR_TIME_TABLE, FALSE, $calSc);
+$text2 .= $tp->parseTemplate($EVENT_TIME_TABLE, FALSE, $calSc);    /*ok*/
 
 // navigation buttons
-$text2 .= $tp->parseTemplate($CALENDAR_NAVIGATION_TABLE, FALSE, $calSc);
+$text2 .= $tp->parseTemplate($EVENT_NAVIGATION_TABLE, FALSE, $calSc);  /*ok*/
 
 
 // ****** CAUTION - the category dropdown also used $sql object - take care to avoid interference!
@@ -747,9 +788,9 @@ if ($ds == 'event')
     }
     $next10_start = $thisEvent['event_start'] +1;
 	$calSc->event = $thisEvent;			// Give shortcodes the event data
-	$text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE_START, FALSE, $calSc);
-	if ($ec_err) $text2.= "Software Error<br />"; else $text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE, FALSE, $calSc);
-	$text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE_END, FALSE, $calSc);
+	$text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE_START, FALSE, $calSc);   /* ok */
+	if ($ec_err) $text2.= "Software Error<br />"; else $text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE, FALSE, $calSc);   /* ok */
+	$text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE_END, FALSE, $calSc);    /* ok */
 }
 else
 {
@@ -804,7 +845,7 @@ else
 		{
 			$ev_list[$ptr]['event_start'] = $tim;
 			$calSc->event = $ev_list[$ptr];			// Give shortcodes the event data
-			$text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE, FALSE, $calSc);
+			$text2 .= $tp->parseTemplate($EVENT_EVENT_TABLE, FALSE, $calSc);       /* ok */
 		}
 		$text2 .= $tp->parseTemplate($EVENT_EVENTLIST_TABLE_END, FALSE, $calSc);
 	}
@@ -837,6 +878,7 @@ $text2 .= $tp->parseTemplate($EVENT_ARCHIVE_TABLE_START, FALSE, $calSc);
 $text2 .= $archive_events;
 $text2 .= $tp->parseTemplate($EVENT_ARCHIVE_TABLE_END, FALSE, $calSc);
 
+$text2 .= $tp->parseTemplate($EVEN_TIME_TABLE_END, FALSE, $calSc);
 
 $ns->tablerender($tp->ParseTemplate('{EC_EVENT_PAGE_TITLE}', FALSE, $calSc), $text2);
 
