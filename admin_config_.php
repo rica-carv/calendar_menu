@@ -61,12 +61,14 @@ class calendar_menu_adminArea extends e_admin_dispatcher
 			'ui' 			=> 'calendar_menu_form_forthcoming_ui',
 			'uipath' 		=> null
 		),
+/*
 		'maintenance'	=> array(
 			'controller' 	=> 'calendar_menu_maintenance_ui',
 			'path' 			=> null,
 			'ui' 			=> 'calendar_menu_form_maintenance_ui',
 			'uipath' 		=> null
 		),
+*/
 	);	
 	
 	
@@ -83,7 +85,8 @@ class calendar_menu_adminArea extends e_admin_dispatcher
 		'main/opt3'              => array('divider'=>true),
 		'prefs/prefs'			=> array('caption'=> LAN_PREFS, 'perm' => 'P'),
 		'forthcoming/prefs'			=> array('caption'=> EC_ADLAN_A100, 'perm' => 'P'),
-		'maintenance/opt'			=> array('caption'=> EC_ADLAN_A141, 'perm' => 'P'),
+//		'maintenance/form'			=> array('caption'=> EC_ADLAN_A141, 'perm' => 'P'),
+		'prefs/maintenance'			=> array('caption'=> EC_ADLAN_A141, 'perm' => 'P'),
 
 		// 'main/custom'		=> array('caption'=> 'Custom Page', 'perm' => 'P')
 	);
@@ -648,6 +651,73 @@ array_unshift($darray, $last);
 
   	}
 
+public function maintenancePage(){
+
+require_once ('../../class2.php');
+
+require_once(e_ADMIN."auth.php");
+// ====================================================
+//			MAINTENANCE OPTIONS
+// ====================================================
+
+	$frm = e107::getForm();
+  $mes = e107::getMessage();
+  global $ns;
+//if(($action == 'maint'))
+//{
+
+	$text = "
+	<form method='post' action='".e_SELF."?maint'>
+	<fieldset id='plugin-ecal-maintenance'>
+	<table class='table adminform'>
+	<tr>
+		<td style='width:40%;vertical-align:top;'>".EC_ADLAN_A142." </td>
+		<td style='width:60%;vertical-align:top;' class='form-inline'>
+";
+
+$text.=$frm->select("eventpost_deleteoldmonths",array_reverse(range(1,12)), false,array('useValues'=>TRUE));
+
+/*
+$text.="			<select name='eventpost_deleteoldmonths' class='tbox'>
+			<option value='12' selected='selected'>12</option>
+			<option value='11'>11</option>
+			<option value='10'>10</option>
+			<option value='9'>9</option>
+			<option value='8'>8</option>
+			<option value='7'>7</option>
+			<option value='6'>6</option>
+			<option value='5'>5</option>
+			<option value='4'>4</option>
+			<option value='3'>3</option>
+			<option value='2'>2</option>
+			<option value='1'>1</option>
+			</select>
+";
+*/
+$text.="			<span class='field-help'><em>".EC_ADLAN_A143."</em></span>	".$frm->admin_button('deleteold', EC_ADLAN_A145, 'delete')."
+		</td>
+	</tr>
+";
+
+//	$ns->tablerender(EC_ADLAN_1." - ".EC_ADLAN_A141, $mes->render() . $text);
+	$ns->tablerender("", $mes->render() . $text);
+
+	$text = "
+	<tr>
+		<td>".EC_ADLAN_A159." <em>".EC_ADLAN_A160."</em> </td>
+		<td>".$frm->admin_button('cache_clear', EC_ADLAN_A161, 'delete')."</td>
+	</tr>
+	</table>
+	</fieldset>
+	</form>";
+	
+//	$ns->tablerender(EC_ADLAN_1." - ".EC_ADLAN_A159, $mes->render() . $text);
+	$ns->tablerender("", $mes->render() . $text);
+
+//require_once (e_ADMIN."footer.php");
+//}
+}
+
 }
 				
 
@@ -696,10 +766,12 @@ class calendar_menu_forthcoming_form_ui extends e_admin_form_ui
 {
 }		
 
+/*
 class calendar_menu_maintenance_ui extends e_admin_ui
 {
 		protected $pluginTitle		= EC_ADLAN_1;
 		protected $pluginName		= 'calendar_menu';
+*/
 	//	protected $eventName		= 'calendar_menu-calendar_menu'; // remove comment to enable event triggers in admin. 		
 //		protected $table			= 'calendar_menu';
 //		protected $pid				= 'glo_id';
@@ -750,152 +822,18 @@ class calendar_menu_maintenance_ui extends e_admin_ui
 */
 //--------------------  	}
 
-public function init(){
-
-require_once ('../../class2.php');
-
-require_once(e_ADMIN."auth.php");
-// ====================================================
-//			MAINTENANCE OPTIONS
-// ====================================================
-
-	$frm = e107::getForm();
-  $mes = e107::getMessage();
-  global $ns;
-//if(($action == 'maint'))
-//{
-	$text = "
-	<form method='post' action='".e_SELF."?maint'>
-	<fieldset id='plugin-ecal-maintenance'>
-	<table class='table adminform'>
-	<tr>
-		<td style='width:40%;vertical-align:top;'>".EC_ADLAN_A142." </td>
-		<td style='width:60%;vertical-align:top;'>
-			<select name='eventpost_deleteoldmonths' class='tbox'>
-			<option value='12' selected='selected'>12</option>
-			<option value='11'>11</option>
-			<option value='10'>10</option>
-			<option value='9'>9</option>
-			<option value='8'>8</option>
-			<option value='7'>7</option>
-			<option value='6'>6</option>
-			<option value='5'>5</option>
-			<option value='4'>4</option>
-			<option value='3'>3</option>
-			<option value='2'>2</option>
-			<option value='1'>1</option>
-			</select>
-			<span class='field-help'><em>".EC_ADLAN_A143."</em></span>
-		</td>
-	</tr>
-	</table>
-	<div class='buttons-bar center'>
-		".$frm->admin_button('deleteold', EC_ADLAN_A145, 'delete')."
-	</div>
-	</fieldset>
-	</form>
-	<br /><br />";
-
-	$ns->tablerender(EC_ADLAN_1." - ".EC_ADLAN_A141, $mes->render() . $text);
-
-	$text = "
-	<form method='post' action='".e_SELF."?maint'>
-	<fieldset id='plugin-ecal-cache'>
-	<table class='table adminform'>
-	<tr>
-		<td colspan='2' class='smalltext'><em>".EC_ADLAN_A160."</em> </td>
-	</tr>
-	</table>
-	<div class='buttons-bar center'>
-		".$frm->admin_button('cache_clear', EC_ADLAN_A161, 'delete')."
-	</fieldset>
-	</form>";
-	
-	$ns->tablerender(EC_ADLAN_1." - ".EC_ADLAN_A159, $mes->render() . $text);
-
-require_once (e_ADMIN."footer.php");
-//}
-}
-
+/*
 }
 
 class calendar_menu_maintenance_form_ui extends e_admin_form_ui
 {
 
 }		
-
+*/
 new calendar_menu_adminArea();
 
 require_once(e_ADMIN."auth.php");
-
-//var_dump ($calendar_menu_maintenance_ui);
-//$otherDbAdmin = new calendar_menu_maintenance_ui();
-//$otherDbAdmin->showForm();
-
-/*
-// ====================================================
-//			MAINTENANCE OPTIONS
-// ====================================================
-
-	$frm = e107::getForm();
-  $mes = e107::getMessage();
-  global $ns;
-//if(($action == 'maint'))
-//{
-	$text = "
-	<form method='post' action='".e_SELF."?maint'>
-	<fieldset id='plugin-ecal-maintenance'>
-	<table class='table adminform'>
-	<tr>
-		<td style='width:40%;vertical-align:top;'>".EC_ADLAN_A142." </td>
-		<td style='width:60%;vertical-align:top;'>
-			<select name='eventpost_deleteoldmonths' class='tbox'>
-			<option value='12' selected='selected'>12</option>
-			<option value='11'>11</option>
-			<option value='10'>10</option>
-			<option value='9'>9</option>
-			<option value='8'>8</option>
-			<option value='7'>7</option>
-			<option value='6'>6</option>
-			<option value='5'>5</option>
-			<option value='4'>4</option>
-			<option value='3'>3</option>
-			<option value='2'>2</option>
-			<option value='1'>1</option>
-			</select>
-			<span class='field-help'><em>".EC_ADLAN_A143."</em></span>
-		</td>
-	</tr>
-	</table>
-	<div class='buttons-bar center'>
-		".$frm->admin_button('deleteold', EC_ADLAN_A145, 'delete')."
-	</div>
-	</fieldset>
-	</form>
-	<br /><br />";
-
-	$ns->tablerender(EC_ADLAN_1." - ".EC_ADLAN_A141, $mes->render() . $text);
-
-	$text = "
-	<form method='post' action='".e_SELF."?maint'>
-	<fieldset id='plugin-ecal-cache'>
-	<table class='table adminform'>
-	<tr>
-		<td colspan='2' class='smalltext'><em>".EC_ADLAN_A160."</em> </td>
-	</tr>
-	</table>
-	<div class='buttons-bar center'>
-		".$frm->admin_button('cache_clear', EC_ADLAN_A161, 'delete')."
-	</fieldset>
-	</form>";
-	
-	$ns->tablerender(EC_ADLAN_1." - ".EC_ADLAN_A159, $mes->render() . $text);
-*/
-
-
-
 e107::getAdminUI()->runPage();
-
 require_once(e_ADMIN."footer.php");
 exit;
 
