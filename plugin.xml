@@ -6,6 +6,9 @@
 	<readMe>readme.pdf</readMe>
 	<category>content</category>
 	<keywords>
+		<word>information</word>
+		<word>event</word>
+		<word>day</word>
 		<word>calendar</word>
 		<word>event</word>
 		<word>day</word>
@@ -13,12 +16,13 @@
 		<word>month</word>
 		<word>year</word>
 	</keywords>
+	<category>content</category>
 	<adminLinks>
-		<link url='admin_config_old.php' description='LAN_PLUGIN_CALENDAR_MENU_CONFIG' icon='images/calendar_32.png' iconSmall='images/calendar_16.png' primary='true' >LAN_PLUGIN_CALENDAR_MENU_CONFIG</link>
-		<link url='admin_config_old.php?cat' description='EC_ADLAN_A11' icon='images/calendar_32.png' iconSmall='images/calendar_16.png' >EC_ADLAN_A11</link>
-		<link url='admin_config_old.php?forthcoming' description='EC_ADLAN_A100' icon='images/calendar_32.png' iconSmall='images/calendar_16.png' >EC_ADLAN_A100</link>
-		<link url='admin_config_old.php?maint' description='EC_ADLAN_A141' icon='images/calendar_32.png' iconSmall='images/calendar_16.png' >EC_ADLAN_A141</link>
-		<link url='admin_config_old.php?subs' description='EC_ADLAN_A173' icon='images/calendar_32.png' iconSmall='images/calendar_16.png' >EC_ADLAN_A173</link>		
+		<link url='admin_config.php' description='LAN_PLUGIN_CALENDAR_MENU_CONFIG' icon='images/calendar_32.png' iconSmall='images/calendar_16.png' primary='true' >LAN_PLUGIN_CALENDAR_MENU_CONFIG</link>
+		<link url='admin_config.php?cat' description='EC_ADLAN_A11' icon='images/calendar_32.png' iconSmall='images/calendar_16.png' >EC_ADLAN_A11</link>
+		<link url='admin_config.php?forthcoming' description='EC_ADLAN_A100' icon='images/calendar_32.png' iconSmall='images/calendar_16.png' >EC_ADLAN_A100</link>
+		<link url='admin_config_.php?maint' description='EC_ADLAN_A141' icon='images/calendar_32.png' iconSmall='images/calendar_16.png' >EC_ADLAN_A141</link>
+		<link url='admin_config.php?subs' description='EC_ADLAN_A173' icon='images/calendar_32.png' iconSmall='images/calendar_16.png' >EC_ADLAN_A173</link>		
 	</adminLinks>
 	<siteLinks>
 		<link url="{e_PLUGIN}calendar_menu/calendar.php" >LAN_PLUGIN_CALENDAR_MENU_LINK</link>		
