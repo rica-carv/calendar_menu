@@ -111,10 +111,10 @@ else
 switch ($ecal_class->pref['eventpost_menulink']) 
 {
 	case 0 :  
-		$calendar_title = "<a {$CALENDAR_MENU_HDG_LINK_CLASS} href='".e_PLUGIN."calendar_menu/event.php' >".$calendar_title."</a>";
+		$calendar_title = "<a {$CALENDAR_MENU_HDG_LINK_CLASS} href='".e_PLUGIN_ABS."calendar_menu/event.php' >".$calendar_title."</a>";
 		break;
 	case 1 :  
-		$calendar_title = "<a {$CALENDAR_MENU_HDG_LINK_CLASS} href='".e_PLUGIN."calendar_menu/calendar.php' >".$calendar_title."</a>";
+		$calendar_title = "<a {$CALENDAR_MENU_HDG_LINK_CLASS} href='".e_PLUGIN_ABS."calendar_menu/calendar.php' >".$calendar_title."</a>";
 		break;
 	default : ;
 }
