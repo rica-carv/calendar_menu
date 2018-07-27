@@ -314,7 +314,7 @@ if($action == 'cat')
 //    calendarmenu_id - the number of the category - zero indicates a new category
 // We may also have $_POST['send_email_1'] or $_POST['send_email_2'] set to generate a test email as well as doing update/save
 
-	if (is_readable(THEME.'ec_mailout_template.php')) 
+	if (is_readable(THEME.'templates/calendar_menu/ec_mailout_template.php')) 
 	{  // Has to be require
 		require(THEME.'templates/calendar_menu/ec_mailout_template.php');
 	}

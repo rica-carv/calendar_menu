@@ -54,8 +54,9 @@ require_once(e_PLUGIN.'calendar_menu/ecal_class.php');
 $ecal_class = new ecal_class;
 
 
-require_once(e_PLUGIN.'calendar_menu/calendar_shortcodes.php');
-$calSc = new event_calendar_shortcodes();
+//require_once(e_PLUGIN.'calendar_menu/calendar_shortcodes.php');
+//$calSc = new event_calendar_shortcodes();
+$calSc = e107::getScBatch('calendar', 'calendar_menu');
 $calSc->ecalClass = &$ecal_class;			// Give shortcodes a pointer to calendar class
 
 $message = '';

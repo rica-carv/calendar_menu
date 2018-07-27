@@ -16,7 +16,11 @@ if (substr(e_PAGE, 0, 8) == 'calendar')  {
 if (substr(e_PAGE, 0, 5) == 'event')  {
  
    e107::css('calendar_menu', 'css/event.css' );
+                
+}
+if (strpos(e_PAGE, 'ec_pf_page') !== false)  {
+                                            
+   e107::css('calendar_menu', 'css/event.css' );
  
 }
-
 ?>
