@@ -187,7 +187,7 @@ $CALENDARBOOTSTRAP3_TEMPLATE['event']['event_table'] = " {SETIMAGE: w=100&h=100}
   <td >
 	<a href='#{EC_EVENT_ID}' class='e-show-if-js e-expandit fcaption' style='display:inline-block; cursor:pointer; text-align:left; border:0px solid #000; width:100%' title='".EC_LAN_132."'>
 	{EC_EVENT_RECENT_ICON}
-	{EC_EVENT_CAT_ICON: w=100}
+	{EC_EVENT_CAT_ICON}
 	{EC_EVENT_HEADING_DATE}{EC_IFNOT_ALLDAY=EC_EVENT_TIME_START}&nbsp;-&nbsp;{EC_EVENT_TITLE}</a>
 	<div id='{EC_EVENT_ID}' {EC_EVENT_DISPLAYCLASS} style='padding-top:10px; padding-bottom:10px; text-align:left;'>
 	  <table style='width:100%;'  cellspacing='0' cellpadding='0'>
