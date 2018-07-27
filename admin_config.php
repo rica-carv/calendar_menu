@@ -486,7 +486,6 @@ if($action == 'cat')
 		if (!$calendarmenu_dodel)
 		{
 			//require_once(e_HANDLER.'file_class.php');
-			
 			$calendarmenu_text .= "
 			<form id='calformupdate' method='post' action='".e_SELF."?cat'>
 			<fieldset id='plugin-ecal-categories'>
@@ -930,31 +929,31 @@ if($action == 'config')
 	</colgroup>
 	<tr>
 		<td>".EC_ADLAN_A208." </td>
-		<td>". $uc->uc_dropdown('eventpost_admin', $calPref['eventpost_admin'], 'public, nobody, member, admin, classes, no-excludes')."
+		<td>". $uc->uc_dropdown('eventpost_admin', $calPref['eventpost_admin'], 'public, nobody, member, admin, classes, main, no-excludes')."
 		</td>
 	</tr>
 	";
 $text .= "
 	<tr>
 		<td>".EC_ADLAN_A211." </td>
-		<td>". $uc->uc_dropdown('eventpost_super', $calPref['eventpost_super'],  'public, nobody, member, admin, classes, no-excludes')."
+		<td>". $uc->uc_dropdown('eventpost_super', $calPref['eventpost_super'],  'public, nobody, member, admin, classes, main, no-excludes')."
 		</td>
 	</tr>
 
 	<tr>
-		<td>".EC_ADLAN_A134."</td>
+		<td>".EC_ADLAN_A134."<br><div class='label bg-info'>".EC_ADLAN_A137."</div></td>
 		<td>
 			<select name='eventpost_adminlog' class='tbox'>
 			<option value='0' ".($calPref['eventpost_adminlog']=='0'?" selected='selected' ":"")." >". EC_ADLAN_A87." </option>
 			<option value='1' ".($calPref['eventpost_adminlog']=='1'?" selected='selected' ":"")." >".EC_ADLAN_A135." </option>
 			<option value='2' ".($calPref['eventpost_adminlog']=='2'?" selected='selected' ":"")." >".EC_ADLAN_A136." </option>
 			</select>
-			<span class='field-help'>".EC_ADLAN_A137."</span>
+      
 		</td>
 	</tr>
 
 	<tr>
-		<td>".EC_ADLAN_A165."</td>
+		<td>".EC_ADLAN_A165."<br><div class='label bg-info'>What link will be used for menu header</div></td>
 		<td>
 			<select name='eventpost_menulink' class='tbox'>
 			<option value='0' ".($calPref['eventpost_menulink']=='0'?" selected='selected' ":"")." >".EC_ADLAN_A209." </option>
@@ -965,9 +964,8 @@ $text .= "
 	</tr>
 
 	<tr>
-		<td>".EC_ADLAN_A183."</td>
+		<td>".EC_ADLAN_A183."<br><div class='label bg-warning'>".EC_ADLAN_A184."</div></td>
 		<td><input class='tbox' type='checkbox' name='eventpost_showmouseover' value='1' ".($calPref['eventpost_showmouseover']==1?" checked='checked' ":"")." />
-		<span class='field-help'>".EC_ADLAN_A184."</span></td>
 	</tr>
 
 	<tr>
@@ -976,17 +974,15 @@ $text .= "
 	</tr>
 
 	<tr>
-		<td>".EC_ADLAN_A213."</td>
+		<td>".EC_ADLAN_A213."<br><div class='label bg-info'>".EC_ADLAN_A22."</div></td>
 		<td>
 		  <input class='tbox' type='checkbox' name='eventpost_forum' value='1' ".($calPref['eventpost_forum']==1?" checked='checked' ":"")." />
-		  		<span class='field-help'>".EC_ADLAN_A22."</span>
 		  </td>
 	</tr>
 
 	<tr>
-		<td>".EC_ADLAN_A171."</td>
+		<td>".EC_ADLAN_A171."<br><div class='label bg-info'>".EC_ADLAN_A172."</div></td>
 		<td><input class='tbox' type='text' name='eventpost_recentshow' size='10' value='".$calPref['eventpost_recentshow']."' maxlength='5' />
-		<span class='field-help'>".EC_ADLAN_A172."</span>
 		</td>
 	</tr>  
 
@@ -1055,19 +1051,19 @@ $text .= "
 		<span class='field-help'>".EC_ADLAN_A124."</span>".$ecal_class->time_string($ecal_class->time_now)."<br />
 		<span class='field-help'>".EC_ADLAN_A125."</span>".$ecal_class->time_string($ecal_class->site_timedate)."<br />
 		<span class='field-help'>".EC_ADLAN_A126."</span>".$ecal_class->time_string($ecal_class->user_timedate)."
-		</td>
+		<br><div class='label bg-info'>".EC_ADLAN_A129."</div></td>
 		<td>
 			<select name='eventpost_caltime' class='tbox'>
 			<option value='1' ".($calPref['eventpost_caltime']=='1'?" selected='selected' ":'')." > Server </option>
 			<option value='2' ".($calPref['eventpost_caltime']=='2'?" selected='selected' ":'')." > Site </option>
 			<option value='3' ".($calPref['eventpost_caltime']=='3'?" selected='selected' ":'')." > User </option>
-			</select><br /><span class='field-help'>".EC_ADLAN_A129."</span>
+			</select> 
 		</td>
 	</tr>
 
 	<tr>
 		<td>".EC_ADLAN_A123."<br />
-		<span class='field-help'>".EC_ADLAN_A127."</span>
+		<span class='field-help'>".EC_ADLAN_A127."</span> </td>
 		</td>
 		<td>
 			<select name='eventpost_timedisplay' class='tbox'>
@@ -1077,13 +1073,13 @@ $text .= "
 			<option value='3' ".($calPref['eventpost_timedisplay']=='3'?" selected='selected' ":'')." > Custom </option>
 			</select>
             <input class='tbox' type='text' name='eventpost_timecustom' size='20' value='".$calPref['eventpost_timecustom']."' maxlength='30' />
-			<br /><span class='field-help'>".EC_ADLAN_A128."</span>
+        <br><div class='label bg-info'>".EC_ADLAN_A128."</div>
 		</td>
 	</tr>
 
 	<tr>
 		<td>".EC_ADLAN_A166."<br />
-		<span class='field-help'>".EC_ADLAN_A169."</span>
+		<span class='field-help'>".EC_ADLAN_A169."</span> 
 		</td>
 		<td>
 			<select name='eventpost_dateevent' class='tbox'>
@@ -1093,7 +1089,7 @@ $text .= "
 			<option value='0' ".($calPref['eventpost_dateevent']=='0'?" selected='selected' ":'')." > Custom </option>
 			</select>
             <input class='tbox' type='text' name='eventpost_eventdatecustom' size='20' value='".$calPref['eventpost_eventdatecustom']."' maxlength='30' />
-			<br /><span class='field-help'>".EC_ADLAN_A168."</span>
+         <br><div class='label bg-info'>".EC_ADLAN_A168."</div></td>
 		</td>
 	</tr>
 
@@ -1110,7 +1106,7 @@ $text .= "
 			<option value='0' ".($calPref['eventpost_datenext']=='0'?" selected='selected' ":'')." > Custom </option>
 			</select>
             <input class='tbox' type='text' name='eventpost_nextdatecustom' size='20' value='".$calPref['eventpost_nextdatecustom']."' maxlength='30' />
-			<br /><span class='field-help'>".EC_ADLAN_A168."</span>
+			<br /><div class='label bg-info'>".EC_ADLAN_A168."</div></td>
 		</td>
 	</tr>
 
@@ -1132,7 +1128,8 @@ $text .= "
 
 	<tr>
 		<td>".EC_ADLAN_A95."</td>
-		<td><input class='tbox' type='checkbox' name='eventpost_asubs' value='1' ".($calPref['eventpost_asubs']==1?" checked='checked' ":'')." />&nbsp;&nbsp;<span class='field-help'><em>".EC_ADLAN_A96."</em></span>
+		<td><input class='tbox' type='checkbox' name='eventpost_asubs' value='1' ".($calPref['eventpost_asubs']==1?" checked='checked' ":'')." />
+    <br><div class='label bg-info'>".EC_ADLAN_A96."</div>
 		</td>
 	</tr>
 	
