@@ -23,4 +23,11 @@ if (strpos(e_PAGE, 'ec_pf_page') !== false)  {
    e107::css('calendar_menu', 'css/event.css' );
  
 }
+if (strpos(e_PAGE, 'subscribe') !== false)  {
+                                            
+   e107::css('calendar_menu', 'css/event.css' );
+ 
+}
+
+
 ?>
