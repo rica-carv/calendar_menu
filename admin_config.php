@@ -1048,6 +1048,7 @@ $text .= "
 	
 	<tr>
 		<td>".EC_ADLAN_A122."<br />
+    <span class='field-help'>Server local time: </span>".$ecal_class->time_string(time())."<br />
 		<span class='field-help'>".EC_ADLAN_A124."</span>".$ecal_class->time_string($ecal_class->time_now)."<br />
 		<span class='field-help'>".EC_ADLAN_A125."</span>".$ecal_class->time_string($ecal_class->site_timedate)."<br />
 		<span class='field-help'>".EC_ADLAN_A126."</span>".$ecal_class->time_string($ecal_class->user_timedate)."

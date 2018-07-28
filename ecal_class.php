@@ -110,13 +110,13 @@ class ecal_class
     public function __construct()
 	{  // Constructor
 		$this->pref = e107::pref('calendar_menu');         // retrieve calendar_menu pref array.
-    $timezone = e107::pref('core','timezone');
+
+
 		// Get all the times in terms of 'clock time' - i.e. allowing for TZ, DST, etc
 		// All the times in the DB should be 'absolute' - so if we compare with 'clock time' it should work out.
-	  $this->time_now = $this->clockToAbs(time());
-		$this->site_timedate = $this->time_now + ($timezone * 3600);			// Check sign of offset
+		$this->time_now = $this->clockToAbs(time());
+		$this->site_timedate = $this->time_now + ($this->pref['time_offset'] * 3600);			// Check sign of offset
 		$this->user_timedate = $this->time_now + TIMEOFFSET;
-   // $this->time_now = time();
 		switch ($this->pref['eventpost_caltime'])
 		{
 			case 1 :
@@ -523,8 +523,8 @@ class ecal_class
 	 */
 	function clockToAbs($val)
 	{
-		$temp = getdate($val);  
-		$temp['month'] = $this->months[$temp['mon'] - 1];		// Looks like getdate doesn't use the specified site language    
+		$temp = getdate($val);
+		$temp['month'] = $this->months[$temp['mon'] - 1];		// Looks like getdate doesn't use the specified site language
 		return gmmktime($temp['hours'], $temp['minutes'], $temp['seconds'], $temp['mon'], $temp['mday'], $temp['year']);
 	}
 
@@ -835,7 +835,6 @@ class ecal_class
 		$extra = '';
 
 		$event_fields = $this->gen_field_list('e',$event_fields,'event_start,event_end,event_datestamp,event_recurring');
- 
 		if ($cat_fields) 
 		{
 			$cat_fields = ', '.$this->gen_field_list('ec',$cat_fields);
@@ -853,7 +852,7 @@ class ecal_class
 			{$this->extra_query} 
 			ORDER BY e.event_start ASC
 		  ";
- 
+	  
 		//	echo "get_n_events Query: ".$qry."<br />";
 	
 		if ($sql->db_Select_gen($qry))
