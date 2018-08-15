@@ -189,7 +189,7 @@ if (isset($_POST['deleteold']) && isset($_POST['eventpost_deleteoldmonths']))
 	$back_count = intval($_POST['eventpost_deleteoldmonths']);
 	if (($back_count >= 1) && ($back_count <= 12))
 	{
-		$old_date = intval(mktime(0,0,0,$ecal_class->now_date['mon']-$back_count,1,$ecal_class->now_date['year']));
+		$old_date = intval(mktime(0,0,0,$ecal_class->cal_date['mon']-$back_count,1,$ecal_class->cal_date['year']));
 		$old_string = strftime("%d %B %Y",$old_date);
 	//	$message = "Back delete {$back_count} months. Oldest date = {$old_string}";
 		$action = 'confdel';
@@ -917,7 +917,7 @@ if($action == 'config')
 		$ret .= "</select>\n";
 		return $ret;
 	}
-
+ 
 
 	$text = "
 	<form method='post' action='".e_SELF."'>
@@ -1048,17 +1048,18 @@ $text .= "
 	
 	<tr>
 		<td>".EC_ADLAN_A122."<br />
-    <span class='field-help'>Server local time: </span>".$ecal_class->time_string(time())."<br />
-		<span class='field-help'>".EC_ADLAN_A124."</span>".$ecal_class->time_string($ecal_class->time_now)."<br />
-		<span class='field-help'>".EC_ADLAN_A125."</span>".$ecal_class->time_string($ecal_class->site_timedate)."<br />
-		<span class='field-help'>".EC_ADLAN_A126."</span>".$ecal_class->time_string($ecal_class->user_timedate)."
-		<br><div class='label bg-info'>".EC_ADLAN_A129."</div></td>
+ 
+		<span class='field-help'>Your time: </span>".date('r')."<br />
+		<br><div class='label bg-info'>new e107 works with time different way</div></td>
 		<td>
-			<select name='eventpost_caltime' class='tbox'>
-			<option value='1' ".($calPref['eventpost_caltime']=='1'?" selected='selected' ":'')." > Server </option>
-			<option value='2' ".($calPref['eventpost_caltime']=='2'?" selected='selected' ":'')." > Site </option>
-			<option value='3' ".($calPref['eventpost_caltime']=='3'?" selected='selected' ":'')." > User </option>
-			</select> 
+    Check: <br />
+		".$ecal_class->time_string($ecal_class->cal_timedate)."<br />
+    Year: ".$ecal_class->cal_date['year'].", 
+    Month: ".$ecal_class->cal_date['mon'].",  
+    Day: ".$ecal_class->cal_date['mday']."<br />    
+    Minutes: ".$ecal_class->cal_date['minutes'].", 
+    Hours: ".$ecal_class->cal_date['hours'].",  
+    Seconds: ".$ecal_class->cal_date['seconds']." 
 		</td>
 	</tr>
 
