@@ -1055,7 +1055,7 @@ $text .= "
     Check: <br />
 		".$ecal_class->time_string($ecal_class->cal_timedate)."<br />
     Year: ".$ecal_class->cal_date['year'].", 
-    Month: ".$ecal_class->cal_date['mon'].",  
+    Month: ".$ecal_class->cal_date['mon'].",   Month: ".$ecal_class->cal_date['month'].",
     Day: ".$ecal_class->cal_date['mday']."<br />    
     Minutes: ".$ecal_class->cal_date['minutes'].", 
     Hours: ".$ecal_class->cal_date['hours'].",  

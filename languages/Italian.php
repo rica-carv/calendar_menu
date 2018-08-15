@@ -388,7 +388,7 @@ define("NT_LAN_EC_5", "Messaggio");
 define("NT_LAN_EC_6", "Calendario Eventi - Evento inserito");
 define("NT_LAN_EC_7", "Postato nuovo evento");
 define("NT_LAN_EC_8", "Calendario Eventi - Evento modificato");
-/*
+ 
 // Recurring events texts - the numeric part of each define is the internal value assigned
 define('EC_LAN_RECUR_00', 'no');
 define('EC_LAN_RECUR_01', 'annual');
@@ -413,7 +413,8 @@ define('EC_LAN_RECUR_1300', 'Third');
 define('EC_LAN_RECUR_1400', 'Fourth');
 
 
-// Notify
+/*
+// Notify - moved to Global
 define('NT_LAN_EC_1', 'Event Calendar Events');
 define('NT_LAN_EC_2', 'Event Updated');
 define('NT_LAN_EC_3', 'Update by');
@@ -422,8 +423,7 @@ define('NT_LAN_EC_5', 'Message');
 define('NT_LAN_EC_6', 'Event Calendar - Event added');
 define('NT_LAN_EC_7', 'New event posted');
 define('NT_LAN_EC_8', 'Event Calendar - Event modified');
-*/
-
+*/ 
 // Prefs - language defines can be used in various places where text is set through the admin screens
 define('EC_MAILOUT_SUBJECT', 'Notizie dal calendario eventi');	// Use shortcode EC_MAIL_SUBJECT
 

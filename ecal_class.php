@@ -37,9 +37,9 @@ if (!defined('e107_INIT')) { exit; }
 
 if (!defined('EC_DEFAULT_CATEGORY')) { define('EC_DEFAULT_CATEGORY','Default'); }
 
-include_lan(e_PLUGIN.'calendar_menu/languages/'.e_LANGUAGE.'_class.php');
-
-
+ 
+include(e_PLUGIN.'calendar_menu/languages/'.e_LANGUAGE.'.php');
+ 
 /**
  *	Class of useful data and functions for the event calendar plugin
  *	Included in all application files
@@ -109,7 +109,7 @@ class ecal_class
     $correcttime = date('U');
  
     $this->cal_timedate = $correcttime;  // Array with h,m,s, day, month year etc
-		$this->cal_date  = getdate($this->cal_timedate);
+		$this->cal_date  = $this->gmgetdate($this->cal_timedate);
  
 		$this->max_cache_time = $this->cal_date['minutes'] + 60*$this->cal_date['hours'];
 
@@ -493,12 +493,13 @@ class ecal_class
 	 *	Implements a version of getdate that expects a GMT date and doesn't do TZ/DST adjustments
 	 *	time() -date('Z') gives the correction to 'null out' the TZ and DST adjustments that getdate() does
 	 *	(The difference needs to reflect DST for the specified date, not today)
+	 *	Note: no idea what above should do, it just didn't work
 	 */
 	function gmgetdate($date)
 	{
 //		$value = getdate($date-date('Z') + (date('I') ? 3600 : 0));
-		$value = getdate($date-date('Z', $date));
-		
+		//$value = getdate($date-date('Z', $date));
+		$value = getdate($date);
 		$value['month'] = $this->months[$value['mon'] - 1];		// Looks like getdate doesn't use the specified site language
 		return $value;
 	}
