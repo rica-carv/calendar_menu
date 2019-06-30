@@ -616,28 +616,28 @@ if ($action == 'ne' || $action == 'ed')
 		switch ($ecal_class->pref['eventpost_editmode'])
 		{
 		  case 1  : 
-			$insertjs = "rows='15' onselect='storeCaret(this);' onclick='storeCaret(this);' onkeyup='storeCaret(this);'";
+	  	$insertjs = "onselect='storeCaret(this);' onclick='storeCaret(this);' onkeyup='storeCaret(this);'";
+      $description = e107::getBB()->renderButtons('');
+      $description .=  $frm->textarea('ne_event', (isset($ne_event) ? $ne_event : ""), 15, 80, 
+      array('class'=>'tbox form-control', "other"=>"style='width:95%; display: initial;' {$insertjs}"), true) ;      
 			break;
 		  case 2  : 
-			$insertjs = "rows='25' ";
+			 $description = $frm->bbarea('ne_event', (isset($ne_event) ? $ne_event : ""),'', '_common', 'large', 
+       array('class'=>'tbox form-control', "other"=>"style='width:95%; display: initial;'"), true);
 			break;
-		  default : $insertjs = "rows='15' ";
+      /* textarea = 0 */
+		  default : 
+       $description = $frm->textarea('ne_event', (isset($ne_event) ? $ne_event : ""), 15, 80, 
+       array('class'=>'tbox form-control', "other"=>"style='width:95%; display: initial;'"), true);
 		}
-
+        
         $text .= "
 		<tr><td class='forumheader3'>".EC_LAN_32." </td><td class='forumheader3'>
 		<input class='tbox' type='text' name='ne_location' size='60' value='".(isset($ne_location) ? $ne_location : "")."' maxlength='200' style='width:95%' />
-		</td></tr>
-
-		<tr><td class='forumheader3'>".EC_LAN_57." *</td><td class='forumheader3'>
-		<textarea class='tbox' id='ne_event' name='ne_event' cols='59' style='width:95%' {$insertjs}>".(isset($ne_event) ? $ne_event : "")."</textarea>";
-		if ($ecal_class->pref['eventpost_editmode'] == 1)
-		{
-		  // Show help
-		  require_once(e_HANDLER."ren_help.php");
-		  $text .= "<br />".display_help("helpb", 'event');
-		}
-		
+		</td></tr>";
+    $text .= "<tr><td class='forumheader3'>".EC_LAN_57." *</td><td class='forumheader3'>";
+    $text .= $description;
+ 
 		$text .= "</td></tr>";
 
         // Only display for forum thread/link if required.  No point if not wanted

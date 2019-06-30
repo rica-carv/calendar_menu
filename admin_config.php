@@ -189,7 +189,7 @@ if (isset($_POST['deleteold']) && isset($_POST['eventpost_deleteoldmonths']))
 	$back_count = intval($_POST['eventpost_deleteoldmonths']);
 	if (($back_count >= 1) && ($back_count <= 12))
 	{
-		$old_date = intval(mktime(0,0,0,$ecal_class->now_date['mon']-$back_count,1,$ecal_class->now_date['year']));
+		$old_date = intval(mktime(0,0,0,$ecal_class->cal_date['mon']-$back_count,1,$ecal_class->cal_date['year']));
 		$old_string = strftime("%d %B %Y",$old_date);
 	//	$message = "Back delete {$back_count} months. Oldest date = {$old_string}";
 		$action = 'confdel';
@@ -314,7 +314,7 @@ if($action == 'cat')
 //    calendarmenu_id - the number of the category - zero indicates a new category
 // We may also have $_POST['send_email_1'] or $_POST['send_email_2'] set to generate a test email as well as doing update/save
 
-	if (is_readable(THEME.'ec_mailout_template.php')) 
+	if (is_readable(THEME.'templates/calendar_menu/ec_mailout_template.php')) 
 	{  // Has to be require
 		require(THEME.'templates/calendar_menu/ec_mailout_template.php');
 	}
@@ -486,7 +486,6 @@ if($action == 'cat')
 		if (!$calendarmenu_dodel)
 		{
 			//require_once(e_HANDLER.'file_class.php');
-			
 			$calendarmenu_text .= "
 			<form id='calformupdate' method='post' action='".e_SELF."?cat'>
 			<fieldset id='plugin-ecal-categories'>
@@ -918,7 +917,7 @@ if($action == 'config')
 		$ret .= "</select>\n";
 		return $ret;
 	}
-
+ 
 
 	$text = "
 	<form method='post' action='".e_SELF."'>
@@ -930,31 +929,31 @@ if($action == 'config')
 	</colgroup>
 	<tr>
 		<td>".EC_ADLAN_A208." </td>
-		<td>". $uc->uc_dropdown('eventpost_admin', $calPref['eventpost_admin'], 'public, nobody, member, admin, classes, no-excludes')."
+		<td>". $uc->uc_dropdown('eventpost_admin', $calPref['eventpost_admin'], 'public, nobody, member, admin, classes, main, no-excludes')."
 		</td>
 	</tr>
 	";
 $text .= "
 	<tr>
 		<td>".EC_ADLAN_A211." </td>
-		<td>". $uc->uc_dropdown('eventpost_super', $calPref['eventpost_super'],  'public, nobody, member, admin, classes, no-excludes')."
+		<td>". $uc->uc_dropdown('eventpost_super', $calPref['eventpost_super'],  'public, nobody, member, admin, classes, main, no-excludes')."
 		</td>
 	</tr>
 
 	<tr>
-		<td>".EC_ADLAN_A134."</td>
+		<td>".EC_ADLAN_A134."<br><div class='label bg-info'>".EC_ADLAN_A137."</div></td>
 		<td>
 			<select name='eventpost_adminlog' class='tbox'>
 			<option value='0' ".($calPref['eventpost_adminlog']=='0'?" selected='selected' ":"")." >". EC_ADLAN_A87." </option>
 			<option value='1' ".($calPref['eventpost_adminlog']=='1'?" selected='selected' ":"")." >".EC_ADLAN_A135." </option>
 			<option value='2' ".($calPref['eventpost_adminlog']=='2'?" selected='selected' ":"")." >".EC_ADLAN_A136." </option>
 			</select>
-			<span class='field-help'>".EC_ADLAN_A137."</span>
+      
 		</td>
 	</tr>
 
 	<tr>
-		<td>".EC_ADLAN_A165."</td>
+		<td>".EC_ADLAN_A165."<br><div class='label bg-info'>What link will be used for menu header</div></td>
 		<td>
 			<select name='eventpost_menulink' class='tbox'>
 			<option value='0' ".($calPref['eventpost_menulink']=='0'?" selected='selected' ":"")." >".EC_ADLAN_A209." </option>
@@ -965,9 +964,8 @@ $text .= "
 	</tr>
 
 	<tr>
-		<td>".EC_ADLAN_A183."</td>
+		<td>".EC_ADLAN_A183."<br><div class='label bg-warning'>".EC_ADLAN_A184."</div></td>
 		<td><input class='tbox' type='checkbox' name='eventpost_showmouseover' value='1' ".($calPref['eventpost_showmouseover']==1?" checked='checked' ":"")." />
-		<span class='field-help'>".EC_ADLAN_A184."</span></td>
 	</tr>
 
 	<tr>
@@ -976,17 +974,15 @@ $text .= "
 	</tr>
 
 	<tr>
-		<td>".EC_ADLAN_A213."</td>
+		<td>".EC_ADLAN_A213."<br><div class='label bg-info'>".EC_ADLAN_A22."</div></td>
 		<td>
 		  <input class='tbox' type='checkbox' name='eventpost_forum' value='1' ".($calPref['eventpost_forum']==1?" checked='checked' ":"")." />
-		  		<span class='field-help'>".EC_ADLAN_A22."</span>
 		  </td>
 	</tr>
 
 	<tr>
-		<td>".EC_ADLAN_A171."</td>
+		<td>".EC_ADLAN_A171."<br><div class='label bg-info'>".EC_ADLAN_A172."</div></td>
 		<td><input class='tbox' type='text' name='eventpost_recentshow' size='10' value='".$calPref['eventpost_recentshow']."' maxlength='5' />
-		<span class='field-help'>".EC_ADLAN_A172."</span>
 		</td>
 	</tr>  
 
@@ -1052,22 +1048,24 @@ $text .= "
 	
 	<tr>
 		<td>".EC_ADLAN_A122."<br />
-		<span class='field-help'>".EC_ADLAN_A124."</span>".$ecal_class->time_string($ecal_class->time_now)."<br />
-		<span class='field-help'>".EC_ADLAN_A125."</span>".$ecal_class->time_string($ecal_class->site_timedate)."<br />
-		<span class='field-help'>".EC_ADLAN_A126."</span>".$ecal_class->time_string($ecal_class->user_timedate)."
-		</td>
+ 
+		<span class='field-help'>Your time: </span>".date('r')."<br />
+		<br><div class='label bg-info'>new e107 works with time different way</div></td>
 		<td>
-			<select name='eventpost_caltime' class='tbox'>
-			<option value='1' ".($calPref['eventpost_caltime']=='1'?" selected='selected' ":'')." > Server </option>
-			<option value='2' ".($calPref['eventpost_caltime']=='2'?" selected='selected' ":'')." > Site </option>
-			<option value='3' ".($calPref['eventpost_caltime']=='3'?" selected='selected' ":'')." > User </option>
-			</select><br /><span class='field-help'>".EC_ADLAN_A129."</span>
+    Check: <br />
+		".$ecal_class->time_string($ecal_class->cal_timedate)."<br />
+    Year: ".$ecal_class->cal_date['year'].", 
+    Month: ".$ecal_class->cal_date['mon'].",   Month: ".$ecal_class->cal_date['month'].",
+    Day: ".$ecal_class->cal_date['mday']."<br />    
+    Minutes: ".$ecal_class->cal_date['minutes'].", 
+    Hours: ".$ecal_class->cal_date['hours'].",  
+    Seconds: ".$ecal_class->cal_date['seconds']." 
 		</td>
 	</tr>
 
 	<tr>
 		<td>".EC_ADLAN_A123."<br />
-		<span class='field-help'>".EC_ADLAN_A127."</span>
+		<span class='field-help'>".EC_ADLAN_A127."</span> </td>
 		</td>
 		<td>
 			<select name='eventpost_timedisplay' class='tbox'>
@@ -1077,13 +1075,13 @@ $text .= "
 			<option value='3' ".($calPref['eventpost_timedisplay']=='3'?" selected='selected' ":'')." > Custom </option>
 			</select>
             <input class='tbox' type='text' name='eventpost_timecustom' size='20' value='".$calPref['eventpost_timecustom']."' maxlength='30' />
-			<br /><span class='field-help'>".EC_ADLAN_A128."</span>
+        <br><div class='label bg-info'>".EC_ADLAN_A128."</div>
 		</td>
 	</tr>
 
 	<tr>
 		<td>".EC_ADLAN_A166."<br />
-		<span class='field-help'>".EC_ADLAN_A169."</span>
+		<span class='field-help'>".EC_ADLAN_A169."</span> 
 		</td>
 		<td>
 			<select name='eventpost_dateevent' class='tbox'>
@@ -1093,7 +1091,7 @@ $text .= "
 			<option value='0' ".($calPref['eventpost_dateevent']=='0'?" selected='selected' ":'')." > Custom </option>
 			</select>
             <input class='tbox' type='text' name='eventpost_eventdatecustom' size='20' value='".$calPref['eventpost_eventdatecustom']."' maxlength='30' />
-			<br /><span class='field-help'>".EC_ADLAN_A168."</span>
+         <br><div class='label bg-info'>".EC_ADLAN_A168."</div></td>
 		</td>
 	</tr>
 
@@ -1110,7 +1108,7 @@ $text .= "
 			<option value='0' ".($calPref['eventpost_datenext']=='0'?" selected='selected' ":'')." > Custom </option>
 			</select>
             <input class='tbox' type='text' name='eventpost_nextdatecustom' size='20' value='".$calPref['eventpost_nextdatecustom']."' maxlength='30' />
-			<br /><span class='field-help'>".EC_ADLAN_A168."</span>
+			<br /><div class='label bg-info'>".EC_ADLAN_A168."</div></td>
 		</td>
 	</tr>
 
@@ -1132,7 +1130,8 @@ $text .= "
 
 	<tr>
 		<td>".EC_ADLAN_A95."</td>
-		<td><input class='tbox' type='checkbox' name='eventpost_asubs' value='1' ".($calPref['eventpost_asubs']==1?" checked='checked' ":'')." />&nbsp;&nbsp;<span class='field-help'><em>".EC_ADLAN_A96."</em></span>
+		<td><input class='tbox' type='checkbox' name='eventpost_asubs' value='1' ".($calPref['eventpost_asubs']==1?" checked='checked' ":'')." />
+    <br><div class='label bg-info'>".EC_ADLAN_A96."</div>
 		</td>
 	</tr>
 	

@@ -27,7 +27,7 @@
 if (!defined('e107_INIT')) { exit; }
 
 
-
+include_lan(e_PLUGIN.'calendar_menu/languages/'.e_LANGUAGE.'_install.php');
 
 class calendar_menu_setup // must match folder name ie. <pluginfolder>_setup
 {

@@ -737,15 +737,17 @@ class plugin_calendar_menu_calendar_shortcodes extends e_shortcode
 	public function sc_ec_event_cat_icon($parm='')
 	{
 		if ($this->event['event_cat_icon']  )
-		{          
+		{   
+       
 			 // WARNING TODO e107::getParser()->thumbWidth() doesn't work
 			 $class = varset($parm['class'], 'event_cat_icon img-responsive img-fluid');
 			 $w = vartrue($parm['w']) ? $parm['w'] : e107::getParser()->thumbWidth(); // 190; // 160;
 		   $h = vartrue($parm['h']) ? $parm['h'] : e107::getParser()->thumbHeight(); // 130;
+
 			 $opts = array(
               'legacy' => "{e_PLUGIN}calendar_menu/images/'",
               'class'  => $class,
-              'alt'    => $this->var['event_cat_icon'],
+              'alt'    => $this->event['event_title'],
               'w' => $w, 
 							'h' => $h, 							
 							'alt' => $caption,

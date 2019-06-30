@@ -37,9 +37,9 @@ if (!defined('e107_INIT')) { exit; }
 
 if (!defined('EC_DEFAULT_CATEGORY')) { define('EC_DEFAULT_CATEGORY','Default'); }
 
-include_lan(e_PLUGIN.'calendar_menu/languages/'.e_LANGUAGE.'_class.php');
-
-
+ 
+include(e_PLUGIN.'calendar_menu/languages/'.e_LANGUAGE.'.php');
+ 
 /**
  *	Class of useful data and functions for the event calendar plugin
  *	Included in all application files
@@ -51,12 +51,7 @@ class ecal_class
   // Useful time/date variables - set up on creation, and available externally
   // (All the times and dates are consistent, being derived from $time_now, which is the time the constructor was
   // called - probably doesn't matter, but may help someone.
-	var $time_now;						// Current time/date stamp
-	var $site_timedate;					// Site time/date stamp - adjusted for time zone
-	var $user_timedate;					// Time/date based on user's time zone
-	var $cal_timedate;					// Time/date stamp used by event calendar (user set)
-	var $now_date;						// Time/date array from $time_now
-	var $site_date;						// Time/date array from $site_timedate
+ 	var $cal_timedate;					// Time/date stamp used by event calendar (user set)
 	var $cal_date;						// Time/date array from $cal_timedate
 	
 	var $cal_super;						// True if current user is a calendar supervisor
@@ -110,29 +105,13 @@ class ecal_class
     public function __construct()
 	{  // Constructor
 		$this->pref = e107::pref('calendar_menu');         // retrieve calendar_menu pref array.
-
-
-		// Get all the times in terms of 'clock time' - i.e. allowing for TZ, DST, etc
-		// All the times in the DB should be 'absolute' - so if we compare with 'clock time' it should work out.
-		$this->time_now = $this->clockToAbs(time());
-		$this->site_timedate = $this->time_now + ($this->pref['time_offset'] * 3600);			// Check sign of offset
-		$this->user_timedate = $this->time_now + TIMEOFFSET;
-		switch ($this->pref['eventpost_caltime'])
-		{
-			case 1 :
-				$this->cal_timedate  = $this->site_timedate;		// Site time
-				break;
-			case 2 :
-				$this->cal_timedate  = $this->user_timedate;		// User
-				break;
-			default :
-				$this->cal_timedate = $this->time_now;			// Server time - default
-		}
-		$this->now_date  = getdate($this->time_now);
-		$this->site_date = getdate($this->site_timedate);	// Array with h,m,s, day, month year etc
-		$this->cal_date  = getdate($this->cal_timedate);
-
-		$this->max_cache_time = $this->site_date['minutes'] + 60*$this->site_date['hours'];
+  
+    $correcttime = date('U');
+ 
+    $this->cal_timedate = $correcttime;  // Array with h,m,s, day, month year etc
+		$this->cal_date  = $this->gmgetdate($this->cal_timedate);
+ 
+		$this->max_cache_time = $this->cal_date['minutes'] + 60*$this->cal_date['hours'];
 
 		$this->cal_super = check_class($this->pref['eventpost_super']);
 		if ($this->cal_super) $this->extra_query = ""; else $this->extra_query = " AND find_in_set(event_cat_class,'".USERCLASS_LIST."')";
@@ -148,7 +127,7 @@ class ecal_class
 			{
 				$this->max_recent_show = 3600 * $this->pref['eventpost_recentshow'];
 			}
-		}
+		} 
 
 		switch ($this->pref['eventpost_timedisplay'])
 		{
@@ -255,7 +234,8 @@ class ecal_class
 	 */
 	public function time_string($convtime)
 	{
-		return gmstrftime($this->time_format_string, $convtime);
+		//return gmstrftime($this->time_format_string, $convtime);
+    return strftime($this->time_format_string, $convtime);
 	}
 
 
@@ -264,7 +244,8 @@ class ecal_class
 	 */
 	public function event_date_string($convdate)
 	{
-		return gmstrftime($this->event_date_format_string,$convdate);
+		//return gmstrftime($this->event_date_format_string,$convdate);
+    return strftime($this->event_date_format_string,$convdate);
 	}
 	
 	
@@ -273,7 +254,8 @@ class ecal_class
 	 */
 	public function next_date_string($convdate)
 	{
-		return gmstrftime($this->next_date_format_string,$convdate);
+		//return gmstrftime($this->next_date_format_string,$convdate);
+    return strftime($this->next_date_format_string,$convdate);
 	}
 	
 	
@@ -282,7 +264,8 @@ class ecal_class
 	 */
 	public function full_date($convdate)
 	{
-		return gmdate($this->cal_format_string, $convdate);
+		//return gmdate($this->cal_format_string, $convdate);
+    return date($this->cal_format_string, $convdate);
 	}
 
 
@@ -295,11 +278,14 @@ class ecal_class
 		switch ($this->java_format_code)
 		{
 			case 2 :
-				return  gmmktime($new_hour, $new_minute, 0, $tmp[1], $tmp[0], $tmp[2]); 	// dd-mm-yyyy
+        //return  gmmktime($new_hour, $new_minute, 0, $tmp[1], $tmp[0], $tmp[2]); 	// dd-mm-yyyy
+				return  mktime($new_hour, $new_minute, 0, $tmp[1], $tmp[0], $tmp[2]); 	// dd-mm-yyyy
 			case 3 :
-				return  gmmktime($new_hour, $new_minute, 0, $tmp[0], $tmp[1], $tmp[2]);		// mm-dd-yyyy
+        //return  gmmktime($new_hour, $new_minute, 0, $tmp[0], $tmp[1], $tmp[2]);		// mm-dd-yyyy
+				return  mktime($new_hour, $new_minute, 0, $tmp[0], $tmp[1], $tmp[2]);		// mm-dd-yyyy
 			default :
-				return  gmmktime($new_hour, $new_minute, 0, $tmp[1], $tmp[2], $tmp[0]);		// yyyy-mm-dd
+        //return  gmmktime($new_hour, $new_minute, 0, $tmp[1], $tmp[2], $tmp[0]);		// yyyy-mm-dd
+				return  mktime($new_hour, $new_minute, 0, $tmp[1], $tmp[2], $tmp[0]);		// yyyy-mm-dd
 		}
 	}
 
@@ -507,12 +493,13 @@ class ecal_class
 	 *	Implements a version of getdate that expects a GMT date and doesn't do TZ/DST adjustments
 	 *	time() -date('Z') gives the correction to 'null out' the TZ and DST adjustments that getdate() does
 	 *	(The difference needs to reflect DST for the specified date, not today)
+	 *	Note: no idea what above should do, it just didn't work
 	 */
 	function gmgetdate($date)
 	{
 //		$value = getdate($date-date('Z') + (date('I') ? 3600 : 0));
-		$value = getdate($date-date('Z', $date));
-		
+		//$value = getdate($date-date('Z', $date));
+		$value = getdate($date);
 		$value['month'] = $this->months[$value['mon'] - 1];		// Looks like getdate doesn't use the specified site language
 		return $value;
 	}
@@ -521,13 +508,14 @@ class ecal_class
 	/**
 	 *	Turn a 'clock time' into an absolute time
 	 */
+   /*
 	function clockToAbs($val)
 	{
 		$temp = getdate($val);
 		$temp['month'] = $this->months[$temp['mon'] - 1];		// Looks like getdate doesn't use the specified site language
 		return gmmktime($temp['hours'], $temp['minutes'], $temp['seconds'], $temp['mon'], $temp['mday'], $temp['year']);
 	}
-
+      */
 
 //------------------------------------------------
 //		Recurring event handling
